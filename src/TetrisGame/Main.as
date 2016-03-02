@@ -30,6 +30,9 @@ public class Main extends Sprite {
     public static var gameInterface:GameInterface; // Главный обьект всего пространства
 
     public function Main() {
+        var server:Server = new Server();
+        server.getUserData("Denis");
+        trace("main");
         // Создаем игрока
         player = new Player();
         // Создаем игру
