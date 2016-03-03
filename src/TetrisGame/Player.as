@@ -34,10 +34,11 @@ public class Player {
     // Получение параметров задачи, относительно уровня игрока
     private function getQuest(level:uint):void {
         scoreLevelPlayer = 500; //4900 + (level*100);
-        timeLevelPlayer = 300;  300 - (level*5); // 5 минут
+        timeLevelPlayer = 300;  //300 - (level*5); // 5 минут
     }
 
     private function nextLevel():void {
+        // Отсылает на сервер данные
 
     }
 

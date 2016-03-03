@@ -12,7 +12,7 @@ import flash.events.KeyboardEvent;
 public class Game extends Sprite {
 
     private const cellSize:uint = 15; // Размер ячейки
-    private const rowCount:uint = 15; // Количество строк поля
+    private const rowCount:uint = 20; // Количество строк поля
     private const colCount:uint = 10; // Количество столбцов поля
     private const indentRightX:int = 175; // Отступ справа для фигуры
 
