@@ -19,10 +19,10 @@ public class Main extends Sprite {
 
 
 
-    private const indentRightX:int = 175; // Отступ справа для фигуры
+    private const indentRightX:int = 275; // Отступ справа для фигуры
 
-    private var scorePlayer:uint = 0; // Количество очков
-    private var levelPlayer:uint = 1; // Уровень игрока
+    //private var scorePlayer:uint = 0; // Количество очков
+    //private var levelPlayer:uint = 1; // Уровень игрока
     private var currentTimePlayer:uint = 0; // Оставлшееся время игрока
 
     // Для достижения очередного уровня
@@ -38,30 +38,24 @@ public class Main extends Sprite {
     private var buttonArray:Array; // Массив кнопок
 
     public function Main() {
-<<<<<<< HEAD
-        var server:Server = new Server();
-        server.getUserData("Denis");
-        trace("main");
+
+        //var server:Server = new Server();
+        //server.getUserData("Denis");
+        //trace("main");
+
+
         // Создаем игрока
         player = new Player();
-=======
         // Расставляем обьекты по сцене
         drawTop(); // Верхняя панель
->>>>>>> origin/master
+        // Отрисовка информации
+        drawItems();
         // Создаем игру
         game = new Game(player, this);
         addChild(game);
         game.y = 30;
         game.x = 85;
         game.newGame();
-        // Отрисовка информации
-        drawItems();
-
-        // Создаем игрока
-        player = new Player();
-
-
-
 
         currentTimer.addEventListener(TimerEvent.TIMER, onCurrentTime);
     }
@@ -99,25 +93,33 @@ public class Main extends Sprite {
     public function reloadData():void {
         var tl:TextField = TextField(getChildByName("textLevel"));
         if (tl != null) {
-            tl.text = levelPlayer.toString();
+            tl.text =  player.levelPlayer.toString();
 
         }
         var ts:TextField = TextField(getChildByName("textScore"));
         if (ts != null) {
-            ts.text = scorePlayer.toString();
+            ts.text = player.scorePlayer.toString();
         }
     }
 
     // Отрисовка информации игрока
     private function drawItems():void {
 
+        var itemsPlayer:Sprite = new Sprite();
+        addChild(itemsPlayer);
+        itemsPlayer.name = "itemsPlayer";
+        itemsPlayer.graphics.beginFill(0xCCCCCC);
+        itemsPlayer.graphics.drawRect(250, 100, 100, 230);
+        itemsPlayer.graphics.endFill();
+
         // Уровень
         var textLevel:TextField = new TextField();
         textLevel.text = "Уровень:";
         textLevel.name = "textLevel";
+        itemsPlayer.addChild(textLevel);
         textLevel.x = indentRightX;
         textLevel.y = 100;
-        addChild(textLevel);
+
         // Очков
         var textScore:TextField = new TextField();
         textScore.text = "Очков:"

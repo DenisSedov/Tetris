@@ -11,11 +11,13 @@ public class Player {
     private var timeLevelPlayer:uint = 0; // Время на очередном уровне
     private var scoreLevelPlayer:uint = 0; // Количество очков для достижения уровня
 
+
     public function Player() {
+
     }
 
     // Подсчитывает количество очков за удаление строк
-    public function getAddScore(count:uint):uint {
+    public function setScore(count:uint):void {
         var res:uint = 0;
         switch (count) {
             case 1:
@@ -28,7 +30,7 @@ public class Player {
                 res = count * 200;
                 break;
         }
-        return res;
+        scorePlayer += res;
     }
 
     // Получение параметров задачи, относительно уровня игрока

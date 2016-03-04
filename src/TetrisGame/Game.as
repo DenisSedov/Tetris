@@ -4,6 +4,7 @@ package TetrisGame {
 import TetrisGame.Player;
 
 import flash.display.Sprite;
+import flash.events.DRMReturnVoucherCompleteEvent;
 import flash.utils.Timer;
 import flash.events.TimerEvent;
 import flash.events.KeyboardEvent;
@@ -33,6 +34,8 @@ public class Game extends Sprite {
     private var player:Player; // Обьект игрока
     private var main:Main; // Обьект родителя
 
+    private var visibleNext:Boolean = true;
+
     public function Game(p:Player, m:Main) {
         player = p;
         main = m;
@@ -52,7 +55,7 @@ public class Game extends Sprite {
         stage.addEventListener(KeyboardEvent.KEY_DOWN, onKDown);
     }
 
-    // Пауза
+    // Пауза игры
     public function pause():void {
         // убираем обработчики
         stage.removeEventListener(KeyboardEvent.KEY_DOWN, onKDown);
@@ -64,6 +67,12 @@ public class Game extends Sprite {
         // Востанавливаем обработчики
         stage.addEventListener(KeyboardEvent.KEY_DOWN, onKDown);
         timeCount.start();
+    }
+
+    // Устанавливает видимость следующей фигуры
+    public function visibleNextFigure(visible: Boolean):void {
+        visibleNext = visible;
+        drawNextFigure();
     }
 
     // Окончание игры
@@ -308,7 +317,7 @@ public class Game extends Sprite {
 
         // Если удалялись строки
         if (delCountLine > 0) {
-            player.scorePlayer += player.getAddScore(delCountLine);
+            player.setScore(delCountLine);
             main.reloadData();
         }
     }
@@ -319,11 +328,13 @@ public class Game extends Sprite {
         if (getChildByName("next")!=null) {
             removeChild(getChildByName("next"));
         }
-        var nf:Sprite = new Sprite();
-        drawFigure(nf, nextFigureNum);
-        nf.x = indentRightX;
-        nf.name = "next";
-        addChild(nf);
+        if (visibleNext) {
+            var nf:Sprite = new Sprite();
+            drawFigure(nf, nextFigureNum);
+            nf.x = indentRightX;
+            nf.name = "next";
+            addChild(nf);
+        }
     }
 
 }

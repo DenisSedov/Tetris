@@ -5,14 +5,15 @@
     <ignored path="Tetris.iws" />
     <ignored path=".idea/workspace.xml" />
     <file path="/fragment.js2" changelist="573b8703-b230-409e-ae56-9cae2ae47861" time="1456933043154" ignored="false" />
-    <file path="/Main.as" changelist="573b8703-b230-409e-ae56-9cae2ae47861" time="1456932922629" ignored="false" />
+    <file path="/Main.as" changelist="573b8703-b230-409e-ae56-9cae2ae47861" time="1457095927631" ignored="false" />
     <file path="$PROJECT_DIR$/.idea/workspace.xml" changelist="573b8703-b230-409e-ae56-9cae2ae47861" time="1455887583466" ignored="false" />
     <file path="/Figure.as" changelist="573b8703-b230-409e-ae56-9cae2ae47861" time="1456330104808" ignored="false" />
     <file path="/GameInterface.as" changelist="573b8703-b230-409e-ae56-9cae2ae47861" time="1456412351746" ignored="false" />
-    <file path="/Game.as" changelist="573b8703-b230-409e-ae56-9cae2ae47861" time="1456413232020" ignored="false" />
-    <file path="/Player.as" changelist="573b8703-b230-409e-ae56-9cae2ae47861" time="1456411266126" ignored="false" />
+    <file path="/Game.as" changelist="573b8703-b230-409e-ae56-9cae2ae47861" time="1457095818410" ignored="false" />
+    <file path="/Player.as" changelist="573b8703-b230-409e-ae56-9cae2ae47861" time="1457099532534" ignored="false" />
     <file path="/fragment.java" changelist="573b8703-b230-409e-ae56-9cae2ae47861" time="1456569067309" ignored="false" />
     <file path="/Server.as" changelist="573b8703-b230-409e-ae56-9cae2ae47861" time="1456937843659" ignored="false" />
+    <file path="/GameButton.as" changelist="573b8703-b230-409e-ae56-9cae2ae47861" time="1457093864990" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -75,25 +76,25 @@
       <file leaf-file-name="Main.as" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/TetrisGame/Main.as">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="32" column="0" selection-start="1080" selection-end="1080" vertical-scroll-proportion="0.0">
+            <state line="54" column="32" selection-start="1608" selection-end="1608" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Server.as" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="Server.as" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/TetrisGame/Server.as">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="37" column="8" selection-start="1241" selection-end="1241" vertical-scroll-proportion="0.5633528">
+            <state line="43" column="31" selection-start="1406" selection-end="1406" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="noname.as" pinned="false" current="false" current-in-tab="false">
-        <entry file="mock:///noname.as">
+      <file leaf-file-name="GameButton.as" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/TetrisGame/GameButton.as">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+            <state line="49" column="25" selection-start="1370" selection-end="1370" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -108,10 +109,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Player.as" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="Player.as" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/TetrisGame/Player.as">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="13" column="57" selection-start="523" selection-end="523" vertical-scroll-proportion="0.0">
+            <state line="29" column="16" selection-start="864" selection-end="882" vertical-scroll-proportion="0.5660161">
               <folding />
             </state>
           </provider>
@@ -120,7 +121,7 @@
       <file leaf-file-name="Game.as" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/TetrisGame/Game.as">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="180" column="39" selection-start="6477" selection-end="6477" vertical-scroll-proportion="0.0">
+            <state line="319" column="15" selection-start="11561" selection-end="11561" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -149,11 +150,12 @@
         <option value="$PROJECT_DIR$/src/Tetris/Main.as" />
         <option value="$PROJECT_DIR$/src/TetrisGame/Figure.as" />
         <option value="$PROJECT_DIR$/src/TetrisGame/GameInterface.as" />
-        <option value="$PROJECT_DIR$/src/TetrisGame/Game.as" />
-        <option value="$PROJECT_DIR$/src/TetrisGame/Player.as" />
         <option value="$PROJECT_DIR$/src/serialization/json/JSON.as" />
-        <option value="$PROJECT_DIR$/src/TetrisGame/Main.as" />
         <option value="$PROJECT_DIR$/src/TetrisGame/Server.as" />
+        <option value="$PROJECT_DIR$/src/TetrisGame/GameButton.as" />
+        <option value="$PROJECT_DIR$/src/TetrisGame/Game.as" />
+        <option value="$PROJECT_DIR$/src/TetrisGame/Main.as" />
+        <option value="$PROJECT_DIR$/src/TetrisGame/Player.as" />
       </list>
     </option>
   </component>
@@ -205,7 +207,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
@@ -257,26 +258,9 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Tetris" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Tetris" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="json" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -290,13 +274,14 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="MemberChooser.copyJavadoc" value="false" />
+    <property name="flex.debug.filter.swf.load.unload" value="true" />
     <property name="GoToClass.toSaveIncludeLibraries" value="false" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="restartRequiresConfirmation" value="true" />
     <property name="MemberChooser.showClasses" value="true" />
     <property name="GoToClass.includeLibraries" value="false" />
-    <property name="options.splitter.details.proportions" value="0.2" />
     <property name="options.searchVisible" value="true" />
+    <property name="options.splitter.details.proportions" value="0.2" />
   </component>
   <component name="RecentsManager">
     <key name="CreateActionScriptClassDialog.DESTINATION_PACKAGE_RECENT_KEY">
@@ -305,12 +290,6 @@
     </key>
   </component>
   <component name="RunManager" selected="Flash App.Main">
-    <configuration default="true" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType" factoryName="Plugin">
-      <module name="" />
-      <option name="VM_PARAMETERS" value="-Xmx512m -Xms256m -XX:MaxPermSize=250m" />
-      <option name="PROGRAM_PARAMETERS" />
-      <method />
-    </configuration>
     <configuration default="true" type="Remote" factoryName="Remote">
       <option name="USE_SOCKET_TRANSPORT" value="true" />
       <option name="SERVER_MODE" value="false" />
@@ -345,39 +324,6 @@
       <option name="ALTERNATIVE_JRE_PATH" />
       <method />
     </configuration>
-    <configuration default="true" type="TestNG" factoryName="TestNG">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <module name="" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="SUITE_NAME" />
-      <option name="PACKAGE_NAME" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="METHOD_NAME" />
-      <option name="GROUP_NAME" />
-      <option name="TEST_OBJECT" value="CLASS" />
-      <option name="VM_PARAMETERS" value="-ea" />
-      <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="OUTPUT_DIRECTORY" />
-      <option name="ANNOTATION_TYPE" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="moduleWithDependencies" />
-      </option>
-      <option name="USE_DEFAULT_REPORTERS" value="false" />
-      <option name="PROPERTIES_FILE" />
-      <envs />
-      <properties />
-      <listeners />
-      <method />
-    </configuration>
-    <configuration default="true" type="RemoteFlashRunConfigurationType" factoryName="Flash Remote Debug">
-      <option name="BCName" value="" />
-      <option name="moduleName" value="" />
-      <method />
-    </configuration>
     <configuration default="true" type="Application" factoryName="Application">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <option name="MAIN_CLASS_NAME" />
@@ -393,25 +339,9 @@
       <envs />
       <method />
     </configuration>
-    <configuration default="true" type="JUnit" factoryName="JUnit">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <module name="" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="METHOD_NAME" />
-      <option name="TEST_OBJECT" value="class" />
-      <option name="VM_PARAMETERS" value="-ea" />
-      <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="moduleWithDependencies" />
-      </option>
-      <envs />
-      <patterns />
+    <configuration default="true" type="RemoteFlashRunConfigurationType" factoryName="Flash Remote Debug">
+      <option name="BCName" value="" />
+      <option name="moduleName" value="" />
       <method />
     </configuration>
     <configuration default="true" type="FlashRunConfigurationType" factoryName="Flash App">
@@ -580,31 +510,31 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.39910814" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32998884" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32998884" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.27267876" sideWeight="0.6008919" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.28228387" sideWeight="0.67001116" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3979933" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32998884" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32998884" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
@@ -677,8 +607,28 @@
           <line>41</line>
           <option name="timeStamp" value="29" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="flex">
+          <url>file://$PROJECT_DIR$/src/TetrisGame/GameButton.as</url>
+          <line>122</line>
+          <option name="timeStamp" value="31" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="flex">
+          <url>file://$PROJECT_DIR$/src/TetrisGame/Main.as</url>
+          <line>98</line>
+          <option name="timeStamp" value="37" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="flex">
+          <url>file://$PROJECT_DIR$/src/TetrisGame/Player.as</url>
+          <line>20</line>
+          <option name="timeStamp" value="38" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="flex">
+          <url>file://$PROJECT_DIR$/src/TetrisGame/Game.as</url>
+          <line>319</line>
+          <option name="timeStamp" value="39" />
+        </line-breakpoint>
       </breakpoints>
-      <option name="time" value="30" />
+      <option name="time" value="40" />
     </breakpoint-manager>
   </component>
   <component name="antWorkspaceConfiguration">
@@ -686,13 +636,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/TetrisGame/Player.as">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="36" column="32" selection-start="1142" selection-end="1142" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/TetrisGame/Game.as">
       <provider selected="true" editor-type-id="text-editor">
         <state line="306" column="13" selection-start="11203" selection-end="11203" vertical-scroll-proportion="0.0">
@@ -756,23 +699,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/TetrisGame/GameInterface.as">
+    <entry file="file://$PROJECT_DIR$/src/TetrisGame/Server.as">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="4" column="36" selection-start="88" selection-end="88" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/TetrisGame/Player.as">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="57" selection-start="523" selection-end="523" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/TetrisGame/Main.as">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="32" column="0" selection-start="1080" selection-end="1080" vertical-scroll-proportion="0.0">
+        <state line="43" column="31" selection-start="1406" selection-end="1406" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
@@ -784,16 +713,37 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/TetrisGame/Game.as">
+    <entry file="file://$PROJECT_DIR$/src/TetrisGame/GameInterface.as">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="180" column="39" selection-start="6477" selection-end="6477" vertical-scroll-proportion="0.0">
+        <state line="4" column="36" selection-start="88" selection-end="88" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/TetrisGame/Server.as">
+    <entry file="file://$PROJECT_DIR$/src/TetrisGame/Game.as">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="37" column="8" selection-start="1241" selection-end="1241" vertical-scroll-proportion="0.5633528">
+        <state line="319" column="15" selection-start="11561" selection-end="11561" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/TetrisGame/GameButton.as">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="49" column="25" selection-start="1370" selection-end="1370" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/TetrisGame/Main.as">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="54" column="32" selection-start="1608" selection-end="1608" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/TetrisGame/Player.as">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="29" column="16" selection-start="864" selection-end="882" vertical-scroll-proportion="0.5660161">
           <folding />
         </state>
       </provider>

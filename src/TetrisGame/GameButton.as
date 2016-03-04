@@ -7,13 +7,17 @@ import flash.text.TextField;
 
 public class GameButton extends Sprite {
 
-    private static var buttonNameArraw:Array = [["bPause","Пауза"],["bLastStep", "Предыдущий шаг"],
-        ["bNextStep", "Следующий шаг"], ["bHelp", "Помощь"], ["bNew", "Новая игра"]];
+                                                // name, caption, activatedEnabled
+    private static var buttonInitArraw:Array = [["bPause","Пауза", true],["bLastStep", "Предыдущий шаг", false],
+        ["bNextStep", "Следующий шаг", false], ["bHelp", "Помощь", true], ["bNew", "Новая игра", false]];
+
     private static var buttonArray:Array = new Array(); // Массив кнопок
 
     public static var main:Main; // Обьект родителя
     public var caption:String;
-    public var activate:Boolean;
+
+    private var activatedEnabled:Boolean;
+    private var _activate:Boolean = false;
 
 
     public function GameButton() {
@@ -21,21 +25,44 @@ public class GameButton extends Sprite {
         buttonArray.push(this);
     }
 
+    public function get activate():Boolean {
+        return _activate;
+    }
+
+    public function set activate(value:Boolean):void {
+        _activate = value;
+        // Меняем отрисовку
+        drawButtonItems(this);
+    }
+
+    //
+    private function setDefault():void {
+        switch (name) {
+            case "bHelp":
+                activate = true;
+                break;
+        }
+    }
+
     public function onActivated():Boolean {
-        activate = !activate;
+        if (activatedEnabled)
+            activate = !activate;
         return activate;
     }
 
     public static function init(parent:Sprite):void {
         var step:int = 0 ;
 
-        for each(var item in buttonNameArraw) {
+        for each(var item in buttonInitArraw) {
             var button:GameButton = new GameButton();
 
             parent.addChild(button);
-            button.name = item;
+            button.name = item[0];
             button.x = 10 + (step * 65);
             button.y = 5;
+            button.caption = item[1];
+            button.activatedEnabled = item[2];
+            button.setDefault();
 
             drawButtonItems(button);
             //var t:Text = new Text();
@@ -53,8 +80,10 @@ public class GameButton extends Sprite {
     }
 
     // Отрисовка кнопок меню
-    private static function drawButtonItems(button:Sprite, color:uint = 0xCCCCCC):void {
+    private static function drawButtonItems(button:GameButton, color:uint = 0xCCCCCC):void {
         button.graphics.lineStyle(0.1,0x999999);
+        if (button.activate)
+            color = 0xFFFFCC;
         button.graphics.beginFill(color);
         button.graphics.drawRoundRect(0,0,65,15, 5);
         button.graphics.endFill();
@@ -68,9 +97,9 @@ public class GameButton extends Sprite {
         else if (e.target is TextField)
             button = e.target.parent;
         if (e.type == "mouseOver")
-            drawButtonItems(button, 0x999999);
+            drawButtonItems(GameButton(button), 0x999999);
         else
-            drawButtonItems(button);
+            drawButtonItems(GameButton(button));
     }
 
     // Обработка нажатий кнопок
@@ -80,7 +109,7 @@ public class GameButton extends Sprite {
             button = GameButton(e.target);
         else if (e.target is TextField)
             button = e.target.parent;
-
+        button.onActivated();
         // "bPause","bLastStep","bNextStep", "bHelp", "bNew"
         switch (button.name) {
             case "bPause":
@@ -91,8 +120,10 @@ public class GameButton extends Sprite {
             case "bNextStep":
                 break;
             case "bHelp":
+                Main.game.visibleNextFigure(button.activate);
                 break;
             case "bNew":
+                Main.game.newGame();
                 break;
         }
     }
@@ -103,7 +134,6 @@ public class GameButton extends Sprite {
         else
             Main.game.start();
     }
-
 }
 
 }
