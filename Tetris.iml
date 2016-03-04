@@ -2,12 +2,12 @@
 <module type="Flex" version="4">
   <component name="FlexBuildConfigurationManager" active="Tetris">
     <configurations>
-      <configuration name="Tetris" main-class="Tetris" output-file="Tetris.swf" output-folder="$MODULE_DIR$/out/production/Tetris" use-html-wrapper="true" wrapper-template-path="$MODULE_DIR$/html-template">
-        <dependencies target-player="11.1">
+      <configuration name="Tetris" target-platform="Desktop" main-class="Tetris" output-file="Tetris.swf" output-folder="$MODULE_DIR$/out/production/Tetris">
+        <dependencies>
           <sdk name="4.6 + AIR3.2" />
         </dependencies>
         <compiler-options />
-        <packaging-air-desktop />
+        <packaging-air-desktop package-file-name="Tetris" />
         <packaging-android />
         <packaging-ios />
       </configuration>

@@ -3,15 +3,21 @@ package TetrisGame {
 
 import flash.display.DisplayObject;
 import flash.display.Sprite;
+import flash.events.Event;
+import flash.events.MouseEvent;
 import flash.text.TextFormat;
 import flash.utils.Timer;
 import flash.events.TimerEvent;
 import flash.events.KeyboardEvent;
 import flash.text.TextField;
+
+import mx.controls.Text;
+
 import spark.components.Button;
 
-
 public class Main extends Sprite {
+
+
 
     private const indentRightX:int = 175; // Отступ справа для фигуры
 
@@ -29,21 +35,34 @@ public class Main extends Sprite {
     public static var player:Player; // Обьект игрока
     public static var gameInterface:GameInterface; // Главный обьект всего пространства
 
+    private var buttonArray:Array; // Массив кнопок
+
     public function Main() {
+<<<<<<< HEAD
         var server:Server = new Server();
         server.getUserData("Denis");
         trace("main");
         // Создаем игрока
         player = new Player();
+=======
+        // Расставляем обьекты по сцене
+        drawTop(); // Верхняя панель
+>>>>>>> origin/master
         // Создаем игру
         game = new Game(player, this);
         addChild(game);
-        game.y = 25;
+        game.y = 30;
+        game.x = 85;
         game.newGame();
         // Отрисовка информации
-
-       // drawTop();
         drawItems();
+
+        // Создаем игрока
+        player = new Player();
+
+
+
+
         currentTimer.addEventListener(TimerEvent.TIMER, onCurrentTime);
     }
 
@@ -56,15 +75,14 @@ public class Main extends Sprite {
 
     // Отрисовка верхней панели игры
     private function drawTop():void {
-        var bPause:Button = new Button();
-        bPause.name = "bPause";
-        bPause.label = "Пауза";
-        //addChild(bPause);
-        bPause.height = 50;
-        bPause.width = 50;
-        bPause.x = 300;
-        bPause.y = 300;
-
+        var sTop: Sprite = new Sprite();
+        addChild(sTop);
+        sTop.name = "sTop";
+        sTop.graphics.beginFill(0xCCCCCC);
+        sTop.graphics.drawRect(0, 0, 350, 25);
+        sTop.graphics.endFill();
+        GameButton.main = this;
+        GameButton.init(sTop);
     }
 
     // Форматирование текста надписей
