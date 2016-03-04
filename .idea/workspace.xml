@@ -81,10 +81,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Server.as" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="Server.as" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/TetrisGame/Server.as">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="40" column="54" selection-start="1351" selection-end="1351" vertical-scroll-proportion="0.0">
+            <state line="37" column="8" selection-start="1241" selection-end="1241" vertical-scroll-proportion="0.5633528">
               <folding />
             </state>
           </provider>
@@ -117,10 +117,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Game.as" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="Game.as" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/TetrisGame/Game.as">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="175" column="33" selection-start="6383" selection-end="6383" vertical-scroll-proportion="0.434">
+            <state line="180" column="39" selection-start="6477" selection-end="6477" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -580,7 +580,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="7" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -669,12 +669,12 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="flex">
           <url>file://$PROJECT_DIR$/src/TetrisGame/Server.as</url>
-          <line>41</line>
+          <line>42</line>
           <option name="timeStamp" value="28" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="flex">
           <url>file://$PROJECT_DIR$/src/TetrisGame/Server.as</url>
-          <line>40</line>
+          <line>41</line>
           <option name="timeStamp" value="29" />
         </line-breakpoint>
       </breakpoints>
@@ -784,16 +784,16 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/TetrisGame/Server.as">
+    <entry file="file://$PROJECT_DIR$/src/TetrisGame/Game.as">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="40" column="54" selection-start="1351" selection-end="1351" vertical-scroll-proportion="0.0">
+        <state line="180" column="39" selection-start="6477" selection-end="6477" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/TetrisGame/Game.as">
+    <entry file="file://$PROJECT_DIR$/src/TetrisGame/Server.as">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="175" column="33" selection-start="6383" selection-end="6383" vertical-scroll-proportion="0.434">
+        <state line="37" column="8" selection-start="1241" selection-end="1241" vertical-scroll-proportion="0.5633528">
           <folding />
         </state>
       </provider>

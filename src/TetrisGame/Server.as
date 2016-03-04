@@ -35,6 +35,7 @@ public class Server {
         //loader.addEventListener(SecurityErrorEvent.SECURITY_ERROR, notAllowed);
         //loader.addEventListener(IOErrorEvent.IO_ERROR, notFound);
         loader.load(request);
+
     }
 
     public function userComplete(e:Event):void {
