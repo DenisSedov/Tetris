@@ -12,18 +12,17 @@ import flash.events.KeyboardEvent;
 import flash.text.TextField;
 
 import mx.controls.Text;
+import mx.utils.StringUtil;
 
 import spark.components.Button;
 
 public class Main extends Sprite {
 
-
-
     private const indentRightX:int = 275; // Отступ справа для фигуры
 
     //private var scorePlayer:uint = 0; // Количество очков
     //private var levelPlayer:uint = 1; // Уровень игрока
-    private var currentTimePlayer:uint = 0; // Оставлшееся время игрока
+    //private var currentTimePlayer:uint = 0; // Оставлшееся время игрока
 
     // Для достижения очередного уровня
     private var timeLevelPlayer:uint = 0; // Время на очередном уровне
@@ -45,7 +44,7 @@ public class Main extends Sprite {
 
 
         // Создаем игрока
-        player = new Player();
+        player = new Player(this);
         // Расставляем обьекты по сцене
         drawTop(); // Верхняя панель
         // Отрисовка информации
@@ -58,12 +57,31 @@ public class Main extends Sprite {
         game.newGame();
 
         currentTimer.addEventListener(TimerEvent.TIMER, onCurrentTime);
+        currentTimer.start();
     }
 
     // Таймер работает всегда, отсчитывет время игры
     private function onCurrentTime(e:TimerEvent):void {
-        if (currentTimePlayer > 0) {
-            currentTimePlayer--;
+        // Уменьшение времени игрока
+        player.currentTimePlayer--;
+        // Отрисовка оставшегося времени
+        drawTime();
+    }
+
+    // Формирование оставшегося времени
+    private function drawTime():void {
+        var tt:TextField = TextField(getChildByName("textTime"));
+        var time:int = player.currentTimePlayer;
+        var minutes:int = int(time/60);
+        var seconds:int = time -(minutes * 60);
+        var zero1:String = '';
+        var zero2:String = '';
+        if (minutes < 10)
+            zero1 = '0';
+        if (seconds < 10)
+            zero2 = '0';
+        if (tt != null) {
+            tt.text = StringUtil.substitute("{0}{1}:{2}{3}",zero1, minutes, zero2, seconds);
         }
     }
 
@@ -87,6 +105,17 @@ public class Main extends Sprite {
         tf.color = 0xFF0000;
         tf.font = "Courier";
         return tf;
+    }
+
+    // Новая игра
+    public function startGame():void {
+
+    }
+
+    // Конец игры
+    public function endGame():void {
+        currentTimer.stop();
+        game.endGame();
     }
 
     // Обновление данных по игре
@@ -128,7 +157,14 @@ public class Main extends Sprite {
         textScore.y = 150;
         addChild(textScore);
 
-    // Оставшееся время
+        // Оставшееся время
+        var textTime:TextField = new TextField();
+        textTime.text = "Оставшееся время:"
+        textTime.name = "textTime";
+        textTime.x = indentRightX;
+        textTime.y = 200;
+        addChild(textTime);
+
     //Ваш рекорд
     // Лучший результат
 

@@ -4,7 +4,6 @@ package TetrisGame {
 import TetrisGame.Player;
 
 import flash.display.Sprite;
-import flash.events.DRMReturnVoucherCompleteEvent;
 import flash.utils.Timer;
 import flash.events.TimerEvent;
 import flash.events.KeyboardEvent;
@@ -53,6 +52,7 @@ public class Game extends Sprite {
         nextFigureNum=Math.floor(Math.random()*7);
         generateFigure();
         stage.addEventListener(KeyboardEvent.KEY_DOWN, onKDown);
+        player.initLevelData();
     }
 
     // Пауза игры
@@ -77,7 +77,7 @@ public class Game extends Sprite {
 
     // Окончание игры
     public function endGame():void {
-
+        pause();
     }
 
     // Инициализация всех фигур
