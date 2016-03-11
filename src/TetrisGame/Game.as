@@ -3,6 +3,8 @@ package TetrisGame {
 
 import TetrisGame.Player;
 
+import flash.display.DisplayObject;
+
 import flash.display.Sprite;
 import flash.utils.Timer;
 import flash.events.TimerEvent;
@@ -14,7 +16,7 @@ public class Game extends Sprite {
     private const cellSize:uint = 15; // Размер ячейки
     private const rowCount:uint = 20; // Количество строк поля
     private const colCount:uint = 10; // Количество столбцов поля
-    private const indentRightX:int = 175; // Отступ справа для фигуры
+    private const indentRightX:int = 190; // Отступ справа для фигуры
 
     private var cellsArray:Array; // Массив всех ячеек поля
     private var figuresArray:Array = new Array(); // Массив вариантов фигур
@@ -35,6 +37,8 @@ public class Game extends Sprite {
 
     private var visibleNext:Boolean = true;
 
+    //private var cellSpriteArray:Array = new Array();
+
     public function Game(p:Player, m:Main) {
         player = p;
         main = m;
@@ -46,13 +50,28 @@ public class Game extends Sprite {
         return Main(stage);
     }
 
+    private function removeCells():void {
+        for (var i:int = 0; i < rowCount; i++) {
+            if (cellsArray[i].indexOf(0) == -1) {
+                for (var j:int = 0; j < colCount; j++) {
+                    cellsArray[i][j] = 0;
+
+                }
+            }
+        }
+    }
+
     // Создание новой игры
     public function newGame():void {
+
+
         generateMap();
         nextFigureNum=Math.floor(Math.random()*7);
         generateFigure();
         stage.addEventListener(KeyboardEvent.KEY_DOWN, onKDown);
-        player.initLevelData();
+        player.reloadData();
+        main.reloadData();
+        main.drawTime();
     }
 
     // Пауза игры
@@ -60,6 +79,7 @@ public class Game extends Sprite {
         // убираем обработчики
         stage.removeEventListener(KeyboardEvent.KEY_DOWN, onKDown);
         timeCount.stop();
+        main.currentTimer.stop();
     }
 
     // Возобновление игры
@@ -67,6 +87,7 @@ public class Game extends Sprite {
         // Востанавливаем обработчики
         stage.addEventListener(KeyboardEvent.KEY_DOWN, onKDown);
         timeCount.start();
+        main.currentTimer.start();
     }
 
     // Устанавливает видимость следующей фигуры
@@ -84,31 +105,31 @@ public class Game extends Sprite {
     private function initFigure():void {
         // ++++    палка
         figuresArray[0]=[[[0,0,0,0],[1,1,1,1],[0,0,0,0],[0,0,0,0]],[[0,1,0,0],[0,1,0,0],[0,1,0,0],[0,1,0,0]]];
-        colorsArray[0]=0x00FFFF;
+        colorsArray[0]=0xFF0000;
         //  +++     T
         //   +
         figuresArray[1]=[[[0,0,0,0],[1,1,1,0],[0,1,0,0],[0,0,0,0]],[[0,1,0,0],[1,1,0,0],[0,1,0,0],[0,0,0,0]],[[0,1,0,0],[1,1,1,0],[0,0,0,0],[0,0,0,0]],[[0,1,0,0],[0,1,1,0],[0,1,0,0],[0,0,0,0]]];
-        colorsArray[1]=0x767676;
+        colorsArray[1]=0xFF6600;
         //    +   обратная L
         //  +++
         figuresArray[2]=[[[0,0,0,0],[1,1,1,0],[1,0,0,0],[0,0,0,0]],[[1,1,0,0],[0,1,0,0],[0,1,0,0],[0,0,0,0]],[[0,0,1,0],[1,1,1,0],[0,0,0,0],[0,0,0,0]],[[0,1,0,0],[0,1,0,0],[0,1,1,0],[0,0,0,0]]];
-        colorsArray[2]=0xFFA500;
+        colorsArray[2]=0xFFCC00;
         // +       L
         // +++
         figuresArray[3]=[[[1,0,0,0],[1,1,1,0],[0,0,0,0],[0,0,0,0]],[[0,1,1,0],[0,1,0,0],[0,1,0,0],[0,0,0,0]],[[0,0,0,0],[1,1,1,0],[0,0,1,0],[0,0,0,0]],[[0,1,0,0],[0,1,0,0],[1,1,0,0],[0,0,0,0]]];
-        colorsArray[3]=0x0000FF;
+        colorsArray[3]=0x66CC00;
         // ++      z
         //  ++
         figuresArray[4]=[[[0,0,0,0],[1,1,0,0],[0,1,1,0],[0,0,0,0]],[[0,0,1,0],[0,1,1,0],[0,1,0,0],[0,0,0,0]]];
-        colorsArray[4]=0xFF0000;
+        colorsArray[4]=0x6699FF;
         //  ++     обратная z
         // ++
         figuresArray[5]=[[[0,0,0,0],[0,1,1,0],[1,1,0,0],[0,0,0,0]],[[0,1,0,0],[0,1,1,0],[0,0,1,0],[0,0,0,0]]];
-        colorsArray[5]=0x00FF00;
+        colorsArray[5]=0x3333FF;
         // ++      квадрат
         // ++
         figuresArray[6]=[[[0,1,1,0],[0,1,1,0],[0,0,0,0],[0,0,0,0]]];
-        colorsArray[6]=0xFFFF00;
+        colorsArray[6]=0x660066;
     }
 
     // Генерация поля
@@ -116,7 +137,7 @@ public class Game extends Sprite {
         cellsArray= new Array();
         var fieldSprite:Sprite = new Sprite();
         addChild(fieldSprite);
-        fieldSprite.graphics.lineStyle(0,0x000000);
+        fieldSprite.graphics.lineStyle(0,0x696969);
         for (var i:uint = 0; i<rowCount; i++) {
             cellsArray[i] = new Array();
             for (var j:uint = 0; j<colCount; j++) {
@@ -152,18 +173,33 @@ public class Game extends Sprite {
         else gameOver = true; // Фигура не помещается, конец игры
     }
 
+    private function drawCell(cell:Sprite, x:Number, y:Number, width:Number, height:Number, color:int):Sprite {
+
+        var texture:DisplayObject = LoaderTexture.getCell();
+        texture.x = x;
+        texture.y = y;
+        texture.width = width;
+        texture.height = height;
+        texture.alpha = 0.4;
+
+        cell.graphics.beginFill(color);
+        cell.graphics.drawRect(x, y, width, height);
+        cell.graphics.endFill();
+
+        cell.addChild(texture);
+
+        return cell;
+    }
+
     // Отрисовка фигур
     // figureSptite спрайт в котором отрисовка
     // cf номер фигуры
     // cr номер поворота фигуры
     private function drawFigure(figureSptite: Sprite, cf:uint, cr:uint = 0):Sprite {
-        figureSptite.graphics.lineStyle(0,0x000000);
         for (var i:int=0; i<figuresArray[cf][cr].length; i++) {
             for (var j:int=0; j<figuresArray[cf][cr][i].length; j++) {
                 if (figuresArray[cf][cr][i][j] == 1) {
-                    figureSptite.graphics.beginFill(colorsArray[cf]);
-                    figureSptite.graphics.drawRect(cellSize*j, cellSize*i, cellSize, cellSize);
-                    figureSptite.graphics.endFill();
+                    drawCell(figureSptite, cellSize*j, cellSize*i, cellSize, cellSize, colorsArray[cf]);
                 }
             }
         }
@@ -174,6 +210,7 @@ public class Game extends Sprite {
     private function drawCurrentFigure():void {
         var cf:uint = currentFigureNum;
         currentFigure = new Sprite();
+        addChild(currentFigure);
         drawFigure(currentFigure, currentFigureNum, currentRotationNum);
         addChild(currentFigure);
         placeFigure();
@@ -276,10 +313,7 @@ public class Game extends Sprite {
             for (var j:int = 0; j < figuresArray[cf][currentRotationNum][i].length; j++) {
                 if (figuresArray[cf][currentRotationNum][i][j] == 1) {
                     cell = new Sprite();
-                    cell.graphics.lineStyle(0,0x000000);
-                    cell.graphics.beginFill(colorsArray[currentFigureNum]);
-                    cell.graphics.drawRect(cellSize*(currentCol+j),cellSize*(currentRow+i),cellSize,cellSize);
-                    cell.graphics.endFill();
+                    drawCell(cell, cellSize*(currentCol+j), cellSize*(currentRow+i), cellSize, cellSize, colorsArray[currentFigureNum]);
                     cell.name="r"+(currentRow+i)+"c"+(currentCol+j);
                     addChild(cell);
                     cellsArray[currentRow+i][currentCol+j] = 1;
@@ -330,10 +364,11 @@ public class Game extends Sprite {
         }
         if (visibleNext) {
             var nf:Sprite = new Sprite();
+            addChild(nf);
             drawFigure(nf, nextFigureNum);
             nf.x = indentRightX;
             nf.name = "next";
-            addChild(nf);
+            //addChild(nf);
         }
     }
 

@@ -4,12 +4,14 @@ import flash.display.Sprite;
 import flash.events.Event;
 import flash.events.MouseEvent;
 import flash.text.TextField;
+import flash.text.TextFieldAutoSize;
+import flash.text.TextFormat;
 
 public class GameButton extends Sprite {
 
                                                 // name, caption, activatedEnabled
-    private static var buttonInitArraw:Array = [["bPause","Пауза", true],["bLastStep", "Предыдущий шаг", false],
-        ["bNextStep", "Следующий шаг", false], ["bHelp", "Помощь", true], ["bNew", "Новая игра", false]];
+    private static var buttonInitArraw:Array = [["bPause","Пауза", true],//["bLastStep", "Предыдущий шаг", false],
+        /*["bNextStep", "Следующий шаг", false],*/ ["bHelp", "Помощь", true], ["bNew", "Новая игра", false]];
 
     private static var buttonArray:Array = new Array(); // Массив кнопок
 
@@ -18,6 +20,8 @@ public class GameButton extends Sprite {
 
     private var activatedEnabled:Boolean;
     private var _activate:Boolean = false;
+
+    private static var format:TextFormat = new TextFormat("Arial", 14, 0x708090, "bold");
 
 
     public function GameButton() {
@@ -35,7 +39,7 @@ public class GameButton extends Sprite {
         drawButtonItems(this);
     }
 
-    //
+    // Устанавливаем значения по умолчанию
     private function setDefault():void {
         switch (name) {
             case "bHelp":
@@ -55,26 +59,28 @@ public class GameButton extends Sprite {
 
         for each(var item in buttonInitArraw) {
             var button:GameButton = new GameButton();
-
+            var tray:int = 0;
             parent.addChild(button);
             button.name = item[0];
-            button.x = 10 + (step * 65);
+            button.x = 25 + (step * 100);
             button.y = 5;
             button.caption = item[1];
             button.activatedEnabled = item[2];
             button.setDefault();
-
+            var tf:TextField = new TextField();
+            button.addChild(tf);
             drawButtonItems(button);
-            //var t:Text = new Text();
-            //t.text = item;
-            //var tf:TextField = new TextField();
-            //tf.text = item;
-
-            //button.addChild(tf);
+            tf.selectable = false;
+            tf.autoSize = TextFieldAutoSize.LEFT;
+            tf.defaultTextFormat = format;
+            tf.text = item[1];
+            tf.x = (button.width - tf.width) * .5;
+            tf.y = (button.height - tf.height) * .5;
 
             button.addEventListener(MouseEvent.MOUSE_OVER, onMouseMove);
             button.addEventListener(MouseEvent.MOUSE_OUT, onMouseMove);
             button.addEventListener(MouseEvent.CLICK, onMouseClick);
+            //tray += 10;
             step++;
         }
     }
@@ -85,7 +91,7 @@ public class GameButton extends Sprite {
         if (button.activate)
             color = 0xFFFFCC;
         button.graphics.beginFill(color);
-        button.graphics.drawRoundRect(0,0,65,15, 5);
+        button.graphics.drawRoundRect(0,0,100,20, 5);
         button.graphics.endFill();
     }
 
@@ -124,11 +130,21 @@ public class GameButton extends Sprite {
                 break;
             case "bNew":
                 Main.game.newGame();
+                search("bPause").onPause();
                 break;
         }
     }
 
-    function onPause():void {
+    private static function search(name:String): GameButton {
+        for each(var item:GameButton  in buttonArray) {
+            if (item.name == name) {
+                return item;
+            }
+        }
+        return null;
+    }
+
+    private function onPause():void {
         if (activate)
             Main.game.pause();
         else

@@ -21,39 +21,40 @@ public class Server {
     public function Server() {
     }
 
-    // Запрос данных по пользователю
-    public static function getUserData(username:String):void {
+    private static function setRequest(urlRequest:String, method:String, variables:URLVariables, func:*):void {
         var request:URLRequest = new URLRequest();
-        request.url = url + userUrl + "/userdata";
+        request.url = urlRequest;
         request.requestHeaders = [new URLRequestHeader("Content-Type", "application/json")];
-        request.method = URLRequestMethod.GET;
-        var variables:URLVariables = new URLVariables();
-        variables.username = username; //"Denis";
+        request.method = method;
         variables.format = "json";
+
         request.data = variables;
         var loader:URLLoader = new URLLoader();
-        loader.addEventListener(Event.COMPLETE, userComplete);
-        //loader.addEventListener(SecurityErrorEvent.SECURITY_ERROR, notAllowed);
-        //loader.addEventListener(IOErrorEvent.IO_ERROR, notFound);
+        if (func == null)
+            func = onComplete;
+        loader.addEventListener(Event.COMPLETE, func);
         loader.load(request);
-
     }
 
-    // Запрос данных по уровню
-    public static function getLevelData(level:uint):void {
-        var request:URLRequest = new URLRequest();
-        request.url = url + levelUrl + "/leveldata";
-        request.requestHeaders = [new URLRequestHeader("Content-Type", "application/json")];
-        request.method = URLRequestMethod.GET;
+    // Запрос данных по пользователю
+    public static function getUserData(func:*, username:String):void {
         var variables:URLVariables = new URLVariables();
-        variables.level = level.toString(); //"1";
-        variables.format = "json";
-        request.data = variables;
-        var loader:URLLoader = new URLLoader();
-        loader.addEventListener(Event.COMPLETE, userComplete);
-        //loader.addEventListener(SecurityErrorEvent.SECURITY_ERROR, notAllowed);
-        //loader.addEventListener(IOErrorEvent.IO_ERROR, notFound);
-        loader.load(request);
+        variables.username = username;
+        setRequest(url + userUrl + "/userdata", URLRequestMethod.GET, variables, func);
+    }
+
+    public static function setUserData(player:Player):void {
+        var variables:URLVariables = new URLVariables();
+        variables.username = player.username;
+        variables.point = player.recordScore;
+        variables.level = player.levelPlayer;
+        setRequest(url + userUrl + "/setdata", URLRequestMethod.GET, variables, null);
+    }
+
+    public static function getLevelData(func:*, level:int):void {
+        var variables:URLVariables = new URLVariables();
+        variables.level = level;
+        setRequest(url + levelUrl + "/leveldata", URLRequestMethod.GET, variables, func);
 
     }
 
@@ -63,8 +64,13 @@ public class Server {
     }
 
     public static function userComplete(e:Event):void {
-        var variables:URLVariables = new URLVariables( e.target.data );
-        trace (variables.res);
+        var variables:Object =  com.adobe.serialization.json.JSON.decode(e.target.data);
+        trace (variables);
+    }
+
+    public static function onComplete(e:Event):void {
+        var variables:Object =  com.adobe.serialization.json.JSON.decode(e.target.data);
+        trace (variables);
     }
 
     public static function getLevel(l:uint):Dictionary {

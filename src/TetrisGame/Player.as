@@ -1,23 +1,29 @@
 package TetrisGame {
+import flash.events.Event;
 import flash.utils.Dictionary;
+import com.adobe.serialization.json.JSON;
 
 // Класс игрока, содержит все данные относящиеся к игроку
 public class Player {
 
     private var main:Main;
 
-    private var _scorePlayer:uint = 0; // Текущее количество очков
-    public var _levelPlayer:uint = 1; // Уровень игрока
-    private var _currentTimePlayer:uint = 0; // Оставлшееся время игрока
+    public var username:String;
+    public var recordScore:uint;
+    private var _scorePlayer:Number = -1; // Текущее количество очков
+    private var _levelPlayer:Number = -1; // Уровень игрока
+    private var _currentTimePlayer:Number = -1; // Оставлшееся время игрока
+
 
     // Для достижения очередного уровня
-    private var timeLevelPlayer:uint = 0; // Время на очередном уровне
-    private var scoreLevelPlayer:uint = 0; // Количество очков для достижения уровня
+    private var timeLevelPlayer:Number = -1; // Время на очередном уровне
+    public var scoreLevelPlayer:Number = -1; // Количество очков для достижения уровня
 
 
 
     public function Player(m:Main) {
         main = m;
+        initUserData();
     }
 
     // Неудачное завершение уровня
@@ -32,9 +38,15 @@ public class Player {
     private function completedLevel():void {
         // Выводим сообщение
 
-        // Запрошиваем новый уровень
-
-
+        // Новый уровень
+        levelPlayer++;
+        recordScore += scorePlayer;
+        // Отправляем данные на сервер
+        Server.setUserData(this);
+        _scorePlayer = -1;
+        _currentTimePlayer = -1;
+        //Начинаем новую игру
+        Main.game.newGame();
     }
 
     // Проверка завершения уровня
@@ -43,7 +55,7 @@ public class Player {
         if (_currentTimePlayer == 0)
             failedLevel();
         // Проверка очков
-        if (_scorePlayer >= scoreLevelPlayer)
+        if ((_scorePlayer >= scoreLevelPlayer) && (_scorePlayer != -1))
             completedLevel();
     }
 
@@ -57,10 +69,9 @@ public class Player {
     }
 
     public function set levelPlayer(value:uint):void {
-        // Отправляем данные на сервер
-        Server.nextLevel();
-        initLevelData();
         _levelPlayer = value;
+        // Отправляем данные на сервер
+        initLevelData();
     }
 
     public function get levelPlayer():uint {
@@ -74,6 +85,11 @@ public class Player {
 
     public function get currentTimePlayer():uint {
         return _currentTimePlayer;
+    }
+
+    public function reloadData():void {
+        _currentTimePlayer = timeLevelPlayer;
+        _scorePlayer = 0;
     }
 
     // Подсчитывает количество очков за удаление строк
@@ -93,21 +109,39 @@ public class Player {
         scorePlayer += res;
     }
 
+    // Получение данных по игроку
+    private function initUserData():void {
+        // Запрашиваем данные с сервера
+        Server.getUserData(userDataComplete, "Denis2");
+    }
+
     //Получение данных по текущему уровню
     public function initLevelData():void {
         // Запрашиваем данные с сервера
-        var ld:Dictionary = Server.getLevel(levelPlayer);
-        scoreLevelPlayer = 500;
-        _scorePlayer = 0;
-        timeLevelPlayer = 10;
-        _currentTimePlayer = timeLevelPlayer;
+        Server.getLevelData(levelDataComplete, levelPlayer)
     }
 
-    // Получение параметров задачи, относительно уровня игрока
-    private function getQuest(level:uint):void {
-        scoreLevelPlayer = 500; //4900 + (level*100);
-        timeLevelPlayer = 300;  //300 - (level*5); // 5 минут
+
+    // Загрузка данных игрока
+    public function userDataComplete(e:Event):void {
+        var variables:Object =  com.adobe.serialization.json.JSON.decode(e.target.data);
+        username = variables.username;
+        recordScore = variables.point;
+        levelPlayer = variables.level;
+        main.reloadData();
     }
+
+    // Загрузка данных уровня
+    public function levelDataComplete(e:Event):void {
+        var variables:Object =  com.adobe.serialization.json.JSON.decode(e.target.data);
+        scoreLevelPlayer = variables.point-8900;
+        _scorePlayer = 0;
+        timeLevelPlayer = variables.time;
+        _currentTimePlayer = timeLevelPlayer;
+        main.reloadData();
+    }
+
 
 }
+
 }

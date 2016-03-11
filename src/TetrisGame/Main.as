@@ -5,6 +5,7 @@ import flash.display.DisplayObject;
 import flash.display.Sprite;
 import flash.events.Event;
 import flash.events.MouseEvent;
+import flash.text.TextFieldAutoSize;
 import flash.text.TextFormat;
 import flash.utils.Timer;
 import flash.events.TimerEvent;
@@ -19,6 +20,7 @@ import spark.components.Button;
 public class Main extends Sprite {
 
     private const indentRightX:int = 275; // Отступ справа для фигуры
+    private static var format:TextFormat = new TextFormat("Arial", 12, 0x000000, "bold");
 
     //private var scorePlayer:uint = 0; // Количество очков
     //private var levelPlayer:uint = 1; // Уровень игрока
@@ -28,7 +30,7 @@ public class Main extends Sprite {
     private var timeLevelPlayer:uint = 0; // Время на очередном уровне
     private var scoreLevelPlayer:uint = 0; // Количество очков для достижения уровня
 
-    private var currentTimer:Timer = new Timer(1000); // Таймер для обратного отсчета времени
+    public var currentTimer:Timer = new Timer(1000); // Таймер для обратного отсчета времени
 
     public static var game:Game; // Обьект игры
     public static var player:Player; // Обьект игрока
@@ -42,6 +44,8 @@ public class Main extends Sprite {
         //server.getUserData("Denis");
         //trace("main");
 
+        var texture:DisplayObject = LoaderTexture.getBackground();
+        addChild(texture);
 
         // Создаем игрока
         player = new Player(this);
@@ -69,7 +73,7 @@ public class Main extends Sprite {
     }
 
     // Формирование оставшегося времени
-    private function drawTime():void {
+    public function drawTime():void {
         var tt:TextField = TextField(getChildByName("textTime"));
         var time:int = player.currentTimePlayer;
         var minutes:int = int(time/60);
@@ -82,6 +86,7 @@ public class Main extends Sprite {
             zero2 = '0';
         if (tt != null) {
             tt.text = StringUtil.substitute("{0}{1}:{2}{3}",zero1, minutes, zero2, seconds);
+            tt.x = 250 + (100 - tt.width) * .5;
         }
     }
 
@@ -91,7 +96,7 @@ public class Main extends Sprite {
         addChild(sTop);
         sTop.name = "sTop";
         sTop.graphics.beginFill(0xCCCCCC);
-        sTop.graphics.drawRect(0, 0, 350, 25);
+        sTop.graphics.drawRect(0, 0, 350, 30);
         sTop.graphics.endFill();
         GameButton.main = this;
         GameButton.init(sTop);
@@ -123,57 +128,54 @@ public class Main extends Sprite {
         var tl:TextField = TextField(getChildByName("textLevel"));
         if (tl != null) {
             tl.text =  player.levelPlayer.toString();
-
+            tl.x = 250 + (100 - tl.width) * .5;
         }
         var ts:TextField = TextField(getChildByName("textScore"));
         if (ts != null) {
-            ts.text = player.scorePlayer.toString();
+            ts.text = player.scorePlayer.toString() + '/' + player.scoreLevelPlayer.toString();
+            ts.x = 250 + (100 - ts.width) * .5;
         }
+        var tr:TextField = TextField(getChildByName("textYouRecord"));
+        if (tr != null) {
+            tr.text = player.recordScore.toString();
+            tr.x = 250 + (100 - tr.width) * .5;
+        }
+
+
+    }
+
+    private function formatText(tf:TextField):void {
+        tf.selectable = false;
+        tf.autoSize = TextFieldAutoSize.LEFT;
+        tf.defaultTextFormat = format;
+        tf.x = 250 + (100 - tf.width) * .5;
     }
 
     // Отрисовка информации игрока
     private function drawItems():void {
+        var itemsArray:Array = [["Уровень:", "textLevel"], ["Очков:", "textScore"],
+                ["Оставшееся время:", "textTime"], ["Ваш рекорд:", "textYouRecord"]];
 
-        var itemsPlayer:Sprite = new Sprite();
-        addChild(itemsPlayer);
-        itemsPlayer.name = "itemsPlayer";
-        itemsPlayer.graphics.beginFill(0xCCCCCC);
-        itemsPlayer.graphics.drawRect(250, 100, 100, 230);
-        itemsPlayer.graphics.endFill();
+        var localY:int = 100;
+        for each(var item in itemsArray) {
+            var tf:TextField = new TextField();
+            addChild(tf);
+            tf.text = item[0];
+            formatText(tf);
+            tf.y = localY;
+            tf.text = item[0];
 
-        // Уровень
-        var textLevel:TextField = new TextField();
-        textLevel.text = "Уровень:";
-        textLevel.name = "textLevel";
-        itemsPlayer.addChild(textLevel);
-        textLevel.x = indentRightX;
-        textLevel.y = 100;
+            var af:TextField = new TextField();
+            af.name = item[1];
+            addChild(af);
+            af.y = localY + 20;
+            formatText(af);
 
-        // Очков
-        var textScore:TextField = new TextField();
-        textScore.text = "Очков:"
-        textScore.name = "textScore";
-        textScore.x = indentRightX;
-        textScore.y = 150;
-        addChild(textScore);
-
-        // Оставшееся время
-        var textTime:TextField = new TextField();
-        textTime.text = "Оставшееся время:"
-        textTime.name = "textTime";
-        textTime.x = indentRightX;
-        textTime.y = 200;
-        addChild(textTime);
-
-    //Ваш рекорд
-    // Лучший результат
-
-
-
+            localY += 50;
+        }
+        drawTime();
+        reloadData();
     }
-
-
-
 
 }
 }
