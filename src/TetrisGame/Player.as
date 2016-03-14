@@ -127,14 +127,14 @@ public class Player {
         var variables:Object =  com.adobe.serialization.json.JSON.decode(e.target.data);
         username = variables.username;
         recordScore = variables.point;
-        _levelPlayer = variables.level;
+        levelPlayer = variables.level;
         main.reloadData();
     }
 
     // Загрузка данных уровня
     public function levelDataComplete(e:Event):void {
         var variables:Object =  com.adobe.serialization.json.JSON.decode(e.target.data);
-        scoreLevelPlayer = variables.point-8900;
+        scoreLevelPlayer = variables.point-4900;
         _scorePlayer = 0;
         timeLevelPlayer = variables.time;
         _currentTimePlayer = timeLevelPlayer;
