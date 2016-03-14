@@ -55,7 +55,7 @@ public class Player {
         if (_currentTimePlayer == 0)
             failedLevel();
         // Проверка очков
-        if ((_scorePlayer >= scoreLevelPlayer) && (_scorePlayer != -1))
+        if ((_scorePlayer >= scoreLevelPlayer) && (_scorePlayer != -1 && scoreLevelPlayer != -1))
             completedLevel();
     }
 
@@ -112,7 +112,7 @@ public class Player {
     // Получение данных по игроку
     private function initUserData():void {
         // Запрашиваем данные с сервера
-        Server.getUserData(userDataComplete, "Denis2");
+        Server.getUserData(userDataComplete, "Denis");
     }
 
     //Получение данных по текущему уровню
@@ -127,7 +127,7 @@ public class Player {
         var variables:Object =  com.adobe.serialization.json.JSON.decode(e.target.data);
         username = variables.username;
         recordScore = variables.point;
-        levelPlayer = variables.level;
+        _levelPlayer = variables.level;
         main.reloadData();
     }
 

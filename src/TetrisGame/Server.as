@@ -14,7 +14,7 @@ import flash.utils.Dictionary;
 
 // Класс работы с сервером
 public class Server {
-    private static const url:String = "http://localhost:3000/";
+    private static const url:String = "https://fathomless-earth-78839.herokuapp.com/";//"http://localhost:3000/";
     private static const userUrl:String = "users";
     private static const levelUrl:String = "levels";
 
