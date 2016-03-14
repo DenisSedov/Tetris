@@ -10,6 +10,8 @@ import flash.utils.Timer;
 import flash.events.TimerEvent;
 import flash.events.KeyboardEvent;
 
+import spark.components.supportClasses.DisplayLayer;
+
 // Класс поле для игры и управление фигурами
 public class Game extends Sprite {
 
@@ -28,16 +30,13 @@ public class Game extends Sprite {
     private var currentRow:int; // Текущая строка
     private var currentCol:int; // Текущая колонка
 
-    private var timeCount:Timer = new Timer(1000); // Таймер падения
+    private var timeCount:Timer = new Timer(700); // Таймер падения
     private var gameOver:Boolean=false; // Флаг завершения игры
     private var nextFigureNum:uint; // Номер следующей фигуры
 
     private var player:Player; // Обьект игрока
     private var main:Main; // Обьект родителя
-
     private var visibleNext:Boolean = true;
-
-    //private var cellSpriteArray:Array = new Array();
 
     public function Game(p:Player, m:Main) {
         player = p;
@@ -50,21 +49,20 @@ public class Game extends Sprite {
         return Main(stage);
     }
 
+    // Очистка экрана от мусора
     private function removeCells():void {
         for (var i:int = 0; i < rowCount; i++) {
-            if (cellsArray[i].indexOf(0) == -1) {
-                for (var j:int = 0; j < colCount; j++) {
-                    cellsArray[i][j] = 0;
-
-                }
+            for (var j:int = 0; j < colCount; j++) {
+                var cell:DisplayObject = getChildByName("r"+i+"c"+j);
+                if (cell != null)
+                    removeChild(cell);
             }
         }
     }
 
     // Создание новой игры
     public function newGame():void {
-
-
+        removeCells();
         generateMap();
         nextFigureNum=Math.floor(Math.random()*7);
         generateFigure();
@@ -169,12 +167,12 @@ public class Game extends Sprite {
             timeCount.addEventListener(TimerEvent.TIMER, onTime);
             timeCount.start();
             drawCurrentFigure();
+
         }
         else gameOver = true; // Фигура не помещается, конец игры
     }
 
     private function drawCell(cell:Sprite, x:Number, y:Number, width:Number, height:Number, color:int):Sprite {
-
         var texture:DisplayObject = LoaderTexture.getCell();
         texture.x = x;
         texture.y = y;
@@ -195,22 +193,26 @@ public class Game extends Sprite {
     // figureSptite спрайт в котором отрисовка
     // cf номер фигуры
     // cr номер поворота фигуры
-    private function drawFigure(figureSptite: Sprite, cf:uint, cr:uint = 0):Sprite {
+    private function drawFigure(figureSprite: Sprite, cf:uint, cr:uint = 0):Sprite {
         for (var i:int=0; i<figuresArray[cf][cr].length; i++) {
             for (var j:int=0; j<figuresArray[cf][cr][i].length; j++) {
                 if (figuresArray[cf][cr][i][j] == 1) {
-                    drawCell(figureSptite, cellSize*j, cellSize*i, cellSize, cellSize, colorsArray[cf]);
+                    drawCell(figureSprite, cellSize*j, cellSize*i, cellSize, cellSize, colorsArray[cf]);
                 }
             }
         }
-        return figureSptite;
+        return figureSprite;
     }
 
     // Отрисовка фигуры
     private function drawCurrentFigure():void {
-        var cf:uint = currentFigureNum;
         currentFigure = new Sprite();
-        addChild(currentFigure);
+        currentFigure.name = "currentFigure";
+        // Убираем предыдущую фигуру
+        if (getChildByName("currentFigure")!=null) {
+            removeChild(getChildByName("currentFigure"));
+        }
+        //addChild(currentFigure);
         drawFigure(currentFigure, currentFigureNum, currentRotationNum);
         addChild(currentFigure);
         placeFigure();
@@ -367,8 +369,8 @@ public class Game extends Sprite {
             addChild(nf);
             drawFigure(nf, nextFigureNum);
             nf.x = indentRightX;
+            nf.y = 10;
             nf.name = "next";
-            //addChild(nf);
         }
     }
 

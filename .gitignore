@@ -51,3 +51,7 @@ Tetris.iml
 *.swf
 Tetris.iml
 out/production/Tetris/Main.swf
+.idea/workspace.xml
+*.swf
+out/production/Tetris/Tetris-descriptor.xml
+Tetris.iml

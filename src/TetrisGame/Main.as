@@ -17,6 +17,8 @@ import mx.utils.StringUtil;
 
 import spark.components.Button;
 
+import vk.APIConnection;
+
 public class Main extends Sprite {
 
     private const indentRightX:int = 275; // Отступ справа для фигуры
@@ -34,21 +36,50 @@ public class Main extends Sprite {
 
     public static var game:Game; // Обьект игры
     public static var player:Player; // Обьект игрока
-    public static var gameInterface:GameInterface; // Главный обьект всего пространства
+   // public static var gameInterface:GameInterface; // Главный обьект всего пространства
 
     private var buttonArray:Array; // Массив кнопок
 
+    private var flashVars:Object;
+    private var VK: APIConnection;
+
     public function Main() {
 
-        //var server:Server = new Server();
-        //server.getUserData("Denis");
-        //trace("main");
+        if (stage)
+            init();
+        else
+            addEventListener(Event.ADDED_TO_STAGE, init);
+    }
 
+    private function onApiRequestFail(data: Object): void {
+        var dat:Object = data;
+
+    }
+
+    private function fetchUserInfo(data: Object): void {
+        var dat:Object = data;
+
+    }
+
+    private function init(e: Event = null): void {
+        if (e)
+            removeEventListener(e.type, init);
+
+        flashVars = stage.loaderInfo.parameters as Object;
+        flashVars['api_id'] = 5353032;
+        flashVars['viewer_id'] = 29421457;
+        flashVars['sid'] = "07b3961a9ba30507d94732542285e0e959fc353874f8b963f381511c7c5251029fd5a1444cbe848a1d0d7";
+        flashVars['secret'] = "0e8658ca00";
+
+        VK = new APIConnection(flashVars);
+
+        //VK.callMethod()
+        VK.api('friends.get', { uid: flashVars['viewer_id'] }, fetchUserInfo, onApiRequestFail)
         var texture:DisplayObject = LoaderTexture.getBackground();
         addChild(texture);
 
         // Создаем игрока
-        player = new Player(this);
+        player = new Player(this, flashVars['viewer_id']);
         // Расставляем обьекты по сцене
         drawTop(); // Верхняя панель
         // Отрисовка информации
@@ -102,16 +133,6 @@ public class Main extends Sprite {
         GameButton.init(sTop);
     }
 
-    // Форматирование текста надписей
-    private function getFormatText():TextFormat {
-        var tf:TextFormat = new TextFormat();
-        tf.align =  "center";
-        tf.bold = true;
-        tf.color = 0xFF0000;
-        tf.font = "Courier";
-        return tf;
-    }
-
     // Новая игра
     public function startGame():void {
 
@@ -140,8 +161,6 @@ public class Main extends Sprite {
             tr.text = player.recordScore.toString();
             tr.x = 250 + (100 - tr.width) * .5;
         }
-
-
     }
 
     private function formatText(tf:TextField):void {

@@ -1,6 +1,7 @@
 package TetrisGame {
+
 import flash.events.Event;
-import flash.utils.Dictionary;
+//import flash.utils.Dictionary;
 import com.adobe.serialization.json.JSON;
 
 // Класс игрока, содержит все данные относящиеся к игроку
@@ -21,8 +22,9 @@ public class Player {
 
 
 
-    public function Player(m:Main) {
+    public function Player(m:Main, name:String) {
         main = m;
+        username = name;
         initUserData();
     }
 
@@ -112,7 +114,7 @@ public class Player {
     // Получение данных по игроку
     private function initUserData():void {
         // Запрашиваем данные с сервера
-        Server.getUserData(userDataComplete, "Denis");
+        Server.getUserData(userDataComplete, username);
     }
 
     //Получение данных по текущему уровню
@@ -134,7 +136,7 @@ public class Player {
     // Загрузка данных уровня
     public function levelDataComplete(e:Event):void {
         var variables:Object =  com.adobe.serialization.json.JSON.decode(e.target.data);
-        scoreLevelPlayer = variables.point-4900;
+        scoreLevelPlayer =  100;//variables.point;
         _scorePlayer = 0;
         timeLevelPlayer = variables.time;
         _currentTimePlayer = timeLevelPlayer;
