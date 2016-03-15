@@ -55,3 +55,6 @@ out/production/Tetris/Main.swf
 *.swf
 out/production/Tetris/Tetris-descriptor.xml
 Tetris.iml
+.idea/workspace.xml
+out/production/Tetris/Tetris.swf
+Tetris.iml
