@@ -1,6 +1,10 @@
 package TetrisGame {
 
+import flash.display.Loader;
 import flash.events.Event;
+import flash.events.IOErrorEvent;
+import flash.events.ProgressEvent;
+import flash.events.SecurityErrorEvent;
 import flash.net.URLLoader;
 import flash.net.URLRequest;
 
@@ -9,6 +13,7 @@ import com.adobe.serialization.json.JSON;
 import flash.net.URLRequestHeader;
 import flash.net.URLRequestMethod;
 import flash.net.URLVariables;
+import flash.system.LoaderContext;
 import flash.utils.Dictionary;
 
 
@@ -24,7 +29,7 @@ public class Server {
     private static function setRequest(urlRequest:String, method:String, variables:URLVariables, func:*):void {
         var request:URLRequest = new URLRequest();
         request.url = urlRequest;
-        request.requestHeaders = [new URLRequestHeader("Content-Type", "application/json")];
+        //request.requestHeaders = [new URLRequestHeader("Content-Type", "application/json")];
         request.method = method;
         variables.format = "json";
 
@@ -33,7 +38,17 @@ public class Server {
         if (func == null)
             func = onComplete;
         loader.addEventListener(Event.COMPLETE, func);
+        loader.addEventListener(ProgressEvent.PROGRESS, onProgressInternal);
+        loader.addEventListener(SecurityErrorEvent.SECURITY_ERROR, onErrorInternal);
         loader.load(request);
+    }
+
+    private static function onProgressInternal(e:ProgressEvent):void {
+        trace(e.toString());
+    }
+
+    private static function onErrorInternal(e:SecurityErrorEvent):void {
+        trace(e.toString());
     }
 
     // Запрос данных по пользователю

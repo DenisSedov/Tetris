@@ -30,8 +30,6 @@ public class Player {
 
     // Неудачное завершение уровня
     private function failedLevel():void {
-        // Выводим сообщение об окончании игры
-
         // Останавливаем отсчет таймера
         main.endGame();
     }
@@ -45,7 +43,7 @@ public class Player {
         recordScore += scorePlayer;
         // Отправляем данные на сервер
         Server.setUserData(this);
-        _scorePlayer = -1;
+        //_scorePlayer = -1;
         _currentTimePlayer = -1;
         //Начинаем новую игру
         Main.game.newGame();
@@ -108,6 +106,9 @@ public class Player {
                 res = count * 200;
                 break;
         }
+        // Отправляем данные на сервер
+        recordScore += res;
+        Server.setUserData(this);
         scorePlayer += res;
     }
 
@@ -123,7 +124,6 @@ public class Player {
         Server.getLevelData(levelDataComplete, levelPlayer)
     }
 
-
     // Загрузка данных игрока
     public function userDataComplete(e:Event):void {
         var variables:Object =  com.adobe.serialization.json.JSON.decode(e.target.data);
@@ -136,7 +136,7 @@ public class Player {
     // Загрузка данных уровня
     public function levelDataComplete(e:Event):void {
         var variables:Object =  com.adobe.serialization.json.JSON.decode(e.target.data);
-        scoreLevelPlayer =  100;//variables.point;
+        scoreLevelPlayer =  variables.point;
         _scorePlayer = 0;
         timeLevelPlayer = variables.time;
         _currentTimePlayer = timeLevelPlayer;

@@ -62,7 +62,7 @@ public class GameButton extends Sprite {
             var tray:int = 0;
             parent.addChild(button);
             button.name = item[0];
-            button.x = 25 + (step * 100);
+            button.x = 50 + (step * 150);
             button.y = 5;
             button.caption = item[1];
             button.activatedEnabled = item[2];
@@ -80,7 +80,6 @@ public class GameButton extends Sprite {
             button.addEventListener(MouseEvent.MOUSE_OVER, onMouseMove);
             button.addEventListener(MouseEvent.MOUSE_OUT, onMouseMove);
             button.addEventListener(MouseEvent.CLICK, onMouseClick);
-            //tray += 10;
             step++;
         }
     }
@@ -130,7 +129,7 @@ public class GameButton extends Sprite {
                 break;
             case "bNew":
                 Main.game.newGame();
-                search("bPause").onPause();
+                search("bPause").breakButton();
                 break;
         }
     }
@@ -142,6 +141,10 @@ public class GameButton extends Sprite {
             }
         }
         return null;
+    }
+
+    private function breakButton():void {
+        activate = false;
     }
 
     private function onPause():void {

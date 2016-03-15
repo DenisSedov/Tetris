@@ -1,24 +1,19 @@
 
 package TetrisGame {
 
-import TetrisGame.Player;
-
 import flash.display.DisplayObject;
-
 import flash.display.Sprite;
 import flash.utils.Timer;
 import flash.events.TimerEvent;
 import flash.events.KeyboardEvent;
 
-import spark.components.supportClasses.DisplayLayer;
-
 // Класс поле для игры и управление фигурами
 public class Game extends Sprite {
 
-    private const cellSize:uint = 15; // Размер ячейки
+    private const cellSize:uint = 25; // Размер ячейки
     private const rowCount:uint = 20; // Количество строк поля
     private const colCount:uint = 10; // Количество столбцов поля
-    private const indentRightX:int = 190; // Отступ справа для фигуры
+    private const indentRightX:int = 300; // Отступ справа для фигуры
 
     private var cellsArray:Array; // Массив всех ячеек поля
     private var figuresArray:Array = new Array(); // Массив вариантов фигур
@@ -62,6 +57,7 @@ public class Game extends Sprite {
 
     // Создание новой игры
     public function newGame():void {
+        gameOver = false;
         removeCells();
         generateMap();
         nextFigureNum=Math.floor(Math.random()*7);
@@ -70,6 +66,7 @@ public class Game extends Sprite {
         player.reloadData();
         main.reloadData();
         main.drawTime();
+        main.startGame();
     }
 
     // Пауза игры
@@ -98,6 +95,8 @@ public class Game extends Sprite {
     public function endGame():void {
         pause();
     }
+
+
 
     // Инициализация всех фигур
     private function initFigure():void {
@@ -169,7 +168,11 @@ public class Game extends Sprite {
             drawCurrentFigure();
 
         }
-        else gameOver = true; // Фигура не помещается, конец игры
+        else {
+            gameOver = true; // Фигура не помещается, конец игры
+            main.endGame();
+        }
+
     }
 
     private function drawCell(cell:Sprite, x:Number, y:Number, width:Number, height:Number, color:int):Sprite {

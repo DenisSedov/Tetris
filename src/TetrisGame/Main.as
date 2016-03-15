@@ -3,8 +3,10 @@ package TetrisGame {
 
 import flash.display.DisplayObject;
 import flash.display.Sprite;
+import flash.events.DRMReturnVoucherCompleteEvent;
 import flash.events.Event;
 import flash.events.MouseEvent;
+import flash.system.Security;
 import flash.text.TextFieldAutoSize;
 import flash.text.TextFormat;
 import flash.utils.Timer;
@@ -19,14 +21,11 @@ import spark.components.Button;
 
 import vk.APIConnection;
 
+[SWF(width="500", height="600", frameRate="31", backgroundColor="#FFFFFF")]
 public class Main extends Sprite {
 
-    private const indentRightX:int = 275; // Отступ справа для фигуры
+    private const indentTextX:int = 350; //  Отступ для текста
     private static var format:TextFormat = new TextFormat("Arial", 12, 0x000000, "bold");
-
-    //private var scorePlayer:uint = 0; // Количество очков
-    //private var levelPlayer:uint = 1; // Уровень игрока
-    //private var currentTimePlayer:uint = 0; // Оставлшееся время игрока
 
     // Для достижения очередного уровня
     private var timeLevelPlayer:uint = 0; // Время на очередном уровне
@@ -36,15 +35,13 @@ public class Main extends Sprite {
 
     public static var game:Game; // Обьект игры
     public static var player:Player; // Обьект игрока
-   // public static var gameInterface:GameInterface; // Главный обьект всего пространства
 
-    private var buttonArray:Array; // Массив кнопок
+    private var dlgEndGame:Sprite; // Диалог завершения игры
 
     private var flashVars:Object;
     private var VK: APIConnection;
 
     public function Main() {
-
         if (stage)
             init();
         else
@@ -58,7 +55,6 @@ public class Main extends Sprite {
 
     private function fetchUserInfo(data: Object): void {
         var dat:Object = data;
-
     }
 
     private function init(e: Event = null): void {
@@ -66,15 +62,17 @@ public class Main extends Sprite {
             removeEventListener(e.type, init);
 
         flashVars = stage.loaderInfo.parameters as Object;
-        flashVars['api_id'] = 5353032;
-        flashVars['viewer_id'] = 29421457;
-        flashVars['sid'] = "07b3961a9ba30507d94732542285e0e959fc353874f8b963f381511c7c5251029fd5a1444cbe848a1d0d7";
-        flashVars['secret'] = "0e8658ca00";
-
+        if (flashVars.api_id == null)
+        {
+            flashVars['api_id'] = 5353032;
+            flashVars['viewer_id'] = 29421457;
+            flashVars['sid'] = "07b3961a9ba30507d94732542285e0e959fc353874f8b963f381511c7c5251029fd5a1444cbe848a1d0d7";
+            flashVars['secret'] = "0e8658ca00";
+        }
         VK = new APIConnection(flashVars);
 
         //VK.callMethod()
-        VK.api('friends.get', { uid: flashVars['viewer_id'] }, fetchUserInfo, onApiRequestFail)
+        //VK.api('friends.get', { uid: flashVars['viewer_id'] }, fetchUserInfo, onApiRequestFail)
         var texture:DisplayObject = LoaderTexture.getBackground();
         addChild(texture);
 
@@ -88,9 +86,8 @@ public class Main extends Sprite {
         game = new Game(player, this);
         addChild(game);
         game.y = 30;
-        game.x = 85;
+        game.x = 70;
         game.newGame();
-
         currentTimer.addEventListener(TimerEvent.TIMER, onCurrentTime);
         currentTimer.start();
     }
@@ -117,7 +114,7 @@ public class Main extends Sprite {
             zero2 = '0';
         if (tt != null) {
             tt.text = StringUtil.substitute("{0}{1}:{2}{3}",zero1, minutes, zero2, seconds);
-            tt.x = 250 + (100 - tt.width) * .5;
+            tt.x = indentTextX + (100 - tt.width) * .5;
         }
     }
 
@@ -127,7 +124,7 @@ public class Main extends Sprite {
         addChild(sTop);
         sTop.name = "sTop";
         sTop.graphics.beginFill(0xCCCCCC);
-        sTop.graphics.drawRect(0, 0, 350, 30);
+        sTop.graphics.drawRect(0, 0, 500, 30);
         sTop.graphics.endFill();
         GameButton.main = this;
         GameButton.init(sTop);
@@ -135,13 +132,44 @@ public class Main extends Sprite {
 
     // Новая игра
     public function startGame():void {
-
+        currentTimer.start();
     }
 
     // Конец игры
     public function endGame():void {
         currentTimer.stop();
         game.endGame();
+        endGameDialog();
+    }
+
+    private function endGameDialog():void {
+        dlgEndGame = new Sprite();
+        dlgEndGame.name = "dlgEndGame";
+        dlgEndGame.graphics.lineStyle(0.1,0x999999);
+        dlgEndGame.graphics.beginFill(0xCCCCCC);
+        dlgEndGame.graphics.drawRoundRect(0,0,300,30, 5);
+        dlgEndGame.graphics.endFill();
+        addChild(dlgEndGame);
+        dlgEndGame.x = 100;
+        dlgEndGame.y = 200;
+
+        var tf:TextField = new TextField();
+        dlgEndGame.addChild(tf);
+        tf.selectable = false;
+        tf.autoSize = TextFieldAutoSize.LEFT;
+        tf.defaultTextFormat = format;
+        tf.text = "Игра окончена.";
+        tf.x = (dlgEndGame.width - tf.width) * .5;
+        tf.y = (dlgEndGame.height - tf.height) * .5;
+        dlgEndGame.addEventListener(MouseEvent.CLICK, onMouseClickEndGame);
+        addEventListener(MouseEvent.CLICK, onMouseClickEndGame);
+    }
+
+    private function onMouseClickEndGame(e:Event):void {
+        dlgEndGame.removeEventListener(MouseEvent.CLICK, onMouseClickEndGame);
+        removeEventListener(MouseEvent.CLICK, onMouseClickEndGame);
+        removeChild(dlgEndGame);
+        game.newGame();
     }
 
     // Обновление данных по игре
@@ -149,17 +177,17 @@ public class Main extends Sprite {
         var tl:TextField = TextField(getChildByName("textLevel"));
         if (tl != null) {
             tl.text =  player.levelPlayer.toString();
-            tl.x = 250 + (100 - tl.width) * .5;
+            tl.x = indentTextX + (100 - tl.width) * .5;
         }
         var ts:TextField = TextField(getChildByName("textScore"));
         if (ts != null) {
             ts.text = player.scorePlayer.toString() + '/' + player.scoreLevelPlayer.toString();
-            ts.x = 250 + (100 - ts.width) * .5;
+            ts.x = indentTextX + (100 - ts.width) * .5;
         }
         var tr:TextField = TextField(getChildByName("textYouRecord"));
         if (tr != null) {
             tr.text = player.recordScore.toString();
-            tr.x = 250 + (100 - tr.width) * .5;
+            tr.x = indentTextX + (100 - tr.width) * .5;
         }
     }
 
@@ -167,7 +195,7 @@ public class Main extends Sprite {
         tf.selectable = false;
         tf.autoSize = TextFieldAutoSize.LEFT;
         tf.defaultTextFormat = format;
-        tf.x = 250 + (100 - tf.width) * .5;
+        tf.x = indentTextX + (100 - tf.width) * .5;
     }
 
     // Отрисовка информации игрока
@@ -175,7 +203,7 @@ public class Main extends Sprite {
         var itemsArray:Array = [["Уровень:", "textLevel"], ["Очков:", "textScore"],
                 ["Оставшееся время:", "textTime"], ["Ваш рекорд:", "textYouRecord"]];
 
-        var localY:int = 100;
+        var localY:int = 150;
         for each(var item in itemsArray) {
             var tf:TextField = new TextField();
             addChild(tf);
