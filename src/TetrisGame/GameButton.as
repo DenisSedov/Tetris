@@ -1,4 +1,5 @@
-package TetrisGame {
+package TetrisGame
+{
 
 import flash.display.Sprite;
 import flash.events.Event;
@@ -7,75 +8,83 @@ import flash.text.TextField;
 import flash.text.TextFieldAutoSize;
 import flash.text.TextFormat;
 
-public class GameButton extends Sprite {
-
-                                                // name, caption, activatedEnabled
-    private static var buttonInitArraw:Array = [["bPause","Пауза", true],//["bLastStep", "Предыдущий шаг", false],
-        /*["bNextStep", "Следующий шаг", false],*/ ["bHelp", "Помощь", true], ["bNew", "Новая игра", false]];
-
-    private static var buttonArray:Array = new Array(); // Массив кнопок
-
+public class GameButton extends Sprite
+{
     public static var main:Main; // Обьект родителя
-    public var caption:String;
 
-    private var activatedEnabled:Boolean;
+    public var caption:String;
+                                             // name, caption, _activatedEnabled
+    private static const INIT_ARRAY:Array = [["bPause","Пауза", true], ["bHelp", "Помощь", true], ["bNew", "Новая игра", false]];
+    private static const TEXT_FORMAT:TextFormat = new TextFormat("Arial", 14, 0x708090, "bold");
+
+    private static var _buttonArray:Vector.<GameButton> = new Vector.<GameButton>(); // Массив кнопок
+
+    private var _loadedGUI:LoadedGUI;
+    private var _activatedEnabled:Boolean;
     private var _activate:Boolean = false;
 
-    private static var format:TextFormat = new TextFormat("Arial", 14, 0x708090, "bold");
-
-
-    public function GameButton() {
+    public function GameButton()
+    {
         // Регистрируем новую кнопку
-        buttonArray.push(this);
+        _buttonArray.push( this );
+        _loadedGUI = new LoadedGUI( "GameButton.swf", "swf" );
+        addChild(_loadedGUI);
+
     }
 
-    public function get activate():Boolean {
+    public function get activate():Boolean
+    {
         return _activate;
     }
 
-    public function set activate(value:Boolean):void {
+    public function set activate(value:Boolean):void
+    {
         _activate = value;
         // Меняем отрисовку
-        drawButtonItems(this);
+        this.drawButtonItems();
     }
 
     // Устанавливаем значения по умолчанию
-    private function setDefault():void {
-        switch (name) {
+    private function setDefault():void
+    {
+        switch(name)
+        {
             case "bHelp":
-                activate = true;
-                break;
+                    activate = true;
+                    break;
         }
     }
 
-    public function onActivated():Boolean {
-        if (activatedEnabled)
+    public function onActivated():Boolean
+    {
+        if( _activatedEnabled )
             activate = !activate;
         return activate;
     }
 
-    public static function init(parent:Sprite):void {
-        var step:int = 0 ;
-
-        for each(var item in buttonInitArraw) {
+    public static function init(parent:Sprite):void
+    {
+        var step:int = 0;
+        for each( var item in INIT_ARRAY )
+        {
             var button:GameButton = new GameButton();
-            var tray:int = 0;
-            parent.addChild(button);
-            button.name = item[0];
-            button.x = 50 + (step * 150);
+            parent.addChild( button );
+            button.name = item[ 0 ];
+            button.x = 15 + ( step * 110 );
             button.y = 5;
-            button.caption = item[1];
-            button.activatedEnabled = item[2];
+            button.caption = item[ 1 ];
+            button._activatedEnabled = item[ 2 ];
             button.setDefault();
-            var tf:TextField = new TextField();
-            button.addChild(tf);
-            drawButtonItems(button);
-            tf.selectable = false;
-            tf.autoSize = TextFieldAutoSize.LEFT;
-            tf.defaultTextFormat = format;
-            tf.text = item[1];
-            tf.x = (button.width - tf.width) * .5;
-            tf.y = (button.height - tf.height) * .5;
+
+            var textField:TextField = new TextField();
+            button.addChild( textField );
+            button.drawButtonItems();
+            textField.selectable = false;
+            textField.autoSize = TextFieldAutoSize.LEFT;
+            textField.defaultTextFormat = TEXT_FORMAT;
+            textField.text = item[ 1 ];
+            textField.x = ( 100 - textField.width ) * .5;
+            textField.y = ( 20 - textField.height ) * .5;
 
             button.addEventListener(MouseEvent.MOUSE_OVER, onMouseMove);
             button.addEventListener(MouseEvent.MOUSE_OUT, onMouseMove);
@@ -85,74 +94,78 @@ public class GameButton extends Sprite {
     }
 
     // Отрисовка кнопок меню
-    private static function drawButtonItems(button:GameButton, color:uint = 0xCCCCCC):void {
-        button.graphics.lineStyle(0.1,0x999999);
-        if (button.activate)
-            color = 0xFFFFCC;
-        button.graphics.beginFill(color);
-        button.graphics.drawRoundRect(0,0,100,20, 5);
-        button.graphics.endFill();
+    private function drawButtonItems(mouseMove:Boolean = false):void
+    {
+        if( _loadedGUI == null )
+        {
+            return;
+        }
+        var frame:uint = 1;
+        if ( mouseMove )
+        {
+            frame = 2;
+        }
+        if (activate)
+        {
+            frame = 3;
+        }
+        _loadedGUI.Params.currentStopFrame = frame;
+        _loadedGUI.setParams();
     }
 
     // Обработка наведения мыши
-    private static function onMouseMove(e:Event):void {
-        var button:Sprite;
-        if (e.target is Sprite)
-            button = Sprite(e.target);
-        else if (e.target is TextField)
-            button = e.target.parent;
-        if (e.type == "mouseOver")
-            drawButtonItems(GameButton(button), 0x999999);
-        else
-            drawButtonItems(GameButton(button));
+    private static function onMouseMove(e:Event):void
+    {
+        GameButton( e.currentTarget ).drawButtonItems( e.type == "mouseOver" );
     }
 
     // Обработка нажатий кнопок
-    private static function onMouseClick(e:Event):void {
-        var button:GameButton;
-        if (e.target is Sprite)
-            button = GameButton(e.target);
-        else if (e.target is TextField)
-            button = e.target.parent;
+    private static function onMouseClick(e:Event):void
+    {
+        var button:GameButton = GameButton( e.currentTarget );
         button.onActivated();
         // "bPause","bLastStep","bNextStep", "bHelp", "bNew"
-        switch (button.name) {
+        switch( button.name )
+        {
             case "bPause":
-                button.onPause();
-                break;
+                    button.onPause();
+                    break;
             case "bLastStep":
-                break;
+                    break;
             case "bNextStep":
-                break;
+                    break;
             case "bHelp":
-                Main.game.visibleNextFigure(button.activate);
-                break;
+                    Main.game.visibleNextFigure( button.activate );
+                    break;
             case "bNew":
-                Main.game.newGame();
-                search("bPause").breakButton();
-                break;
+                    Main.game.newGame();
+                    search( "bPause" ).onPause();
+                    break;
         }
     }
 
-    private static function search(name:String): GameButton {
-        for each(var item:GameButton  in buttonArray) {
-            if (item.name == name) {
+    private static function search(name:String):GameButton
+    {
+        for each( var item:GameButton in _buttonArray)
+        {
+            if ( item.name == name )
+            {
                 return item;
             }
         }
         return null;
     }
 
-    private function breakButton():void {
-        activate = false;
-    }
-
-    private function onPause():void {
+    private function onPause():void
+    {
         if (activate)
+        {
             Main.game.pause();
+        }
         else
+        {
             Main.game.start();
+        }
     }
 }
-
 }

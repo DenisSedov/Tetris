@@ -1,61 +1,59 @@
-package TetrisGame {
+package TetrisGame
+{
 
 import flash.events.Event;
-//import flash.utils.Dictionary;
+
 import com.adobe.serialization.json.JSON;
 
 // Класс игрока, содержит все данные относящиеся к игроку
-public class Player {
-
-    private var main:Main;
-
+public class Player
+{
     public var username:String;
     public var recordScore:uint;
+    public var scoreLevelPlayer:Number = -1; // Количество очков для достижения уровня
+
+    private var _main:Main;
     private var _scorePlayer:Number = -1; // Текущее количество очков
     private var _levelPlayer:Number = -1; // Уровень игрока
     private var _currentTimePlayer:Number = -1; // Оставлшееся время игрока
+    private var _timeLevelPlayer:Number = -1; // Время на очередном уровне
 
-
-    // Для достижения очередного уровня
-    private var timeLevelPlayer:Number = -1; // Время на очередном уровне
-    public var scoreLevelPlayer:Number = -1; // Количество очков для достижения уровня
-
-
-
-    public function Player(m:Main, name:String) {
-        main = m;
+    public function Player(m:Main, name:String)
+    {
+        _main = m;
         username = name;
         initUserData();
     }
 
     // Неудачное завершение уровня
-    private function failedLevel():void {
+    private function failedLevel():void
+    {
         // Останавливаем отсчет таймера
-        main.endGame();
+        _main.endGame();
     }
 
     // Удачное завершение уровня
-    private function completedLevel():void {
-        // Выводим сообщение
-
+    private function completedLevel():void
+    {
         // Новый уровень
         levelPlayer++;
         recordScore += scorePlayer;
         // Отправляем данные на сервер
-        Server.setUserData(this);
-        //_scorePlayer = -1;
+        Server.setUserData( this );
+        _scorePlayer = -1;
         _currentTimePlayer = -1;
         //Начинаем новую игру
         Main.game.newGame();
     }
 
     // Проверка завершения уровня
-    private function validCompleted():void {
+    private function validCompleted():void
+    {
         // Проверка времени
-        if (_currentTimePlayer == 0)
+        if( _currentTimePlayer == 0 )
             failedLevel();
         // Проверка очков
-        if ((_scorePlayer >= scoreLevelPlayer) && (_scorePlayer != -1 && scoreLevelPlayer != -1))
+        if( ( _scorePlayer >= scoreLevelPlayer ) && ( _scorePlayer != -1 && scoreLevelPlayer != -1 ) )
             completedLevel();
     }
 
@@ -88,59 +86,63 @@ public class Player {
     }
 
     public function reloadData():void {
-        _currentTimePlayer = timeLevelPlayer;
+        _currentTimePlayer = _timeLevelPlayer;
         _scorePlayer = 0;
     }
 
     // Подсчитывает количество очков за удаление строк
-    public function setScore(count:uint):void {
+    public function setScore(count:uint):void
+    {
         var res:uint = 0;
-        switch (count) {
+        switch(count)
+        {
             case 1:
-                res = 100;
-                break;
+                    res = 100;
+                    break;
             case 2:
-                res = 300;
-                break;
+                    res = 300;
+                    break;
             default:
-                res = count * 200;
-                break;
+                    res = count * 200;
+                    break;
         }
-        // Отправляем данные на сервер
-        recordScore += res;
-        Server.setUserData(this);
         scorePlayer += res;
     }
 
     // Получение данных по игроку
-    private function initUserData():void {
+    private function initUserData():void
+    {
         // Запрашиваем данные с сервера
-        Server.getUserData(userDataComplete, username);
+        Server.getUserData( userDataComplete, username );
     }
 
     //Получение данных по текущему уровню
-    public function initLevelData():void {
+    public function initLevelData():void
+    {
         // Запрашиваем данные с сервера
-        Server.getLevelData(levelDataComplete, levelPlayer)
+        Server.getLevelData( levelDataComplete, levelPlayer )
     }
 
+
     // Загрузка данных игрока
-    public function userDataComplete(e:Event):void {
-        var variables:Object =  com.adobe.serialization.json.JSON.decode(e.target.data);
+    public function userDataComplete(e:Event):void
+    {
+        var variables:Object =  com.adobe.serialization.json.JSON.decode( e.target.data );
         username = variables.username;
         recordScore = variables.point;
         levelPlayer = variables.level;
-        main.reloadData();
+        _main.reloadData();
     }
 
     // Загрузка данных уровня
-    public function levelDataComplete(e:Event):void {
-        var variables:Object =  com.adobe.serialization.json.JSON.decode(e.target.data);
+    public function levelDataComplete(e:Event):void
+    {
+        var variables:Object =  com.adobe.serialization.json.JSON.decode( e.target.data );
         scoreLevelPlayer =  variables.point;
         _scorePlayer = 0;
-        timeLevelPlayer = variables.time;
-        _currentTimePlayer = timeLevelPlayer;
-        main.reloadData();
+        _timeLevelPlayer = variables.time;
+        _currentTimePlayer = _timeLevelPlayer;
+        _main.reloadData();
     }
 
 
