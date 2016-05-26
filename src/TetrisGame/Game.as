@@ -17,7 +17,7 @@ public class Game extends Sprite
 
     private var _cellsArray:Array; // Массив всех ячеек поля
     private var _figuresArray:Array = new Array(); // Массив вариантов фигур
-    private var _timeDown:Timer = new Timer(700); // Таймер падения
+    private var _timeDown:Timer = new Timer( 700 ); // Таймер падения
     private var _gameOver:Boolean=false; // Флаг завершения игры
     private var _nextFigureNum:uint; // Номер следующей фигуры
     private var _visibleNext:Boolean = true; // Флаг видимости следующей фигуры
@@ -102,37 +102,37 @@ public class Game extends Sprite
     private function initFigure():void
     {
         // ++++    палка
-        _figuresArray[0] = [[[0, 0, 0 ,0], [1, 1, 1, 1], [0, 0, 0, 0], [0, 0, 0, 0]],
-                            [[0, 1, 0, 0], [0, 1, 0, 0], [0, 1, 0, 0], [0, 1, 0, 0]]];
+        _figuresArray[ 0 ] = [[[0, 0, 0 ,0], [1, 1, 1, 1], [0, 0, 0, 0], [0, 0, 0, 0]],
+                              [[0, 1, 0, 0], [0, 1, 0, 0], [0, 1, 0, 0], [0, 1, 0, 0]]];
         //  +++     T
         //   +
-        _figuresArray[1]=[[[0, 0, 0, 0], [1, 1, 1, 0], [0, 1, 0, 0], [0, 0, 0, 0]],
-                          [[0, 1, 0, 0], [1, 1, 0, 0], [0, 1, 0, 0], [0, 0, 0, 0]],
-                          [[0, 1, 0, 0], [1, 1, 1, 0], [0, 0, 0, 0], [0, 0, 0, 0]],
-                          [[0, 1, 0, 0], [0, 1, 1, 0], [0, 1, 0, 0], [0, 0, 0, 0]]];
+        _figuresArray[ 1 ] = [[[0, 0, 0, 0], [1, 1, 1, 0], [0, 1, 0, 0], [0, 0, 0, 0]],
+                              [[0, 1, 0, 0], [1, 1, 0, 0], [0, 1, 0, 0], [0, 0, 0, 0]],
+                              [[0, 1, 0, 0], [1, 1, 1, 0], [0, 0, 0, 0], [0, 0, 0, 0]],
+                              [[0, 1, 0, 0], [0, 1, 1, 0], [0, 1, 0, 0], [0, 0, 0, 0]]];
         //    +   обратная L
         //  +++
-        _figuresArray[2]=[[[0, 0, 0, 0], [1, 1, 1, 0], [1, 0, 0, 0], [0, 0, 0, 0]],
-                          [[1, 1, 0, 0], [0, 1, 0, 0], [0, 1, 0, 0], [0, 0, 0, 0]],
-                          [[0, 0, 1, 0], [1, 1, 1, 0], [0, 0, 0, 0], [0, 0, 0, 0]],
-                          [[0, 1, 0, 0], [0, 1, 0, 0], [0, 1, 1, 0], [0, 0, 0, 0]]];
+        _figuresArray[ 2 ] = [[[0, 0, 0, 0], [1, 1, 1, 0], [1, 0, 0, 0], [0, 0, 0, 0]],
+                              [[1, 1, 0, 0], [0, 1, 0, 0], [0, 1, 0, 0], [0, 0, 0, 0]],
+                              [[0, 0, 1, 0], [1, 1, 1, 0], [0, 0, 0, 0], [0, 0, 0, 0]],
+                              [[0, 1, 0, 0], [0, 1, 0, 0], [0, 1, 1, 0], [0, 0, 0, 0]]];
         // +       L
         // +++
-        _figuresArray[3]=[[[1, 0, 0, 0], [1, 1, 1, 0], [0, 0, 0, 0], [0, 0, 0, 0]],
-                          [[0, 1, 1, 0], [0, 1, 0, 0], [0, 1, 0, 0], [0, 0, 0, 0]],
-                          [[0, 0, 0, 0], [1, 1, 1, 0], [0, 0, 1, 0], [0, 0, 0, 0]],
-                          [[0, 1, 0, 0], [0, 1, 0, 0], [1, 1, 0, 0], [0, 0, 0, 0]]];
+        _figuresArray[ 3 ] = [[[1, 0, 0, 0], [1, 1, 1, 0], [0, 0, 0, 0], [0, 0, 0, 0]],
+                              [[0, 1, 1, 0], [0, 1, 0, 0], [0, 1, 0, 0], [0, 0, 0, 0]],
+                              [[0, 0, 0, 0], [1, 1, 1, 0], [0, 0, 1, 0], [0, 0, 0, 0]],
+                              [[0, 1, 0, 0], [0, 1, 0, 0], [1, 1, 0, 0], [0, 0, 0, 0]]];
         // ++      z
         //  ++
-        _figuresArray[4]=[[[0, 0, 0, 0], [1, 1, 0, 0], [0, 1, 1, 0], [0, 0, 0, 0]],
-                          [[0, 0, 1, 0], [0, 1, 1, 0], [0, 1, 0, 0], [0, 0, 0, 0]]];
+        _figuresArray[ 4 ] = [[[0, 0, 0, 0], [1, 1, 0, 0], [0, 1, 1, 0], [0, 0, 0, 0]],
+                              [[0, 0, 1, 0], [0, 1, 1, 0], [0, 1, 0, 0], [0, 0, 0, 0]]];
         //  ++     обратная z
         // ++
-        _figuresArray[5]=[[[0, 0, 0, 0], [0, 1, 1, 0], [1, 1, 0, 0], [0, 0, 0, 0]],
-                          [[0, 1, 0, 0], [0, 1, 1, 0], [0, 0, 1, 0], [0, 0, 0, 0]]];
+        _figuresArray[ 5 ] = [[[0, 0, 0, 0], [0, 1, 1, 0], [1, 1, 0, 0], [0, 0, 0, 0]],
+                              [[0, 1, 0, 0], [0, 1, 1, 0], [0, 0, 1, 0], [0, 0, 0, 0]]];
         // ++      квадрат
         // ++
-        _figuresArray[6]=[[[0, 1, 1, 0], [0, 1, 1, 0], [0, 0, 0, 0], [0, 0, 0, 0]]];
+        _figuresArray[ 6 ] = [[[0, 1, 1, 0], [0, 1, 1, 0], [0, 0, 0, 0], [0, 0, 0, 0]]];
     }
 
     // Генерация поля
@@ -153,7 +153,7 @@ public class Game extends Sprite
     // Генерация новой фигуры
     private function generateFigure():void
     {
-        if(_gameOver)
+        if( _gameOver )
         {
             return;
         }
@@ -226,7 +226,7 @@ public class Game extends Sprite
 
     private function onTimeDown(e:TimerEvent):void
     {
-        if( canFit(_currentRow + 1, _currentCol, _currentRotationNum) )
+        if( canFit( _currentRow + 1, _currentCol, _currentRotationNum ) )
         {
             _currentRow++;
             placeFigure();
@@ -262,7 +262,7 @@ public class Game extends Sprite
                     }
                     break;
             case 38:
-                    var rotation:uint = ( _currentRotationNum + 1 ) % _figuresArray[_currentFigureNum].length;
+                    var rotation:uint = ( _currentRotationNum + 1 ) % _figuresArray[ _currentFigureNum ].length;
                     if( canFit( _currentRow, _currentCol, rotation ) )
                     {
                         _currentRotationNum = rotation;
@@ -298,7 +298,7 @@ public class Game extends Sprite
     {
         for( var i:uint = 0; i < _figuresArray[ _currentFigureNum ][ rotation ].length; i++ )
         {
-            for( var j:uint = 0; j < _figuresArray[ _currentFigureNum ][ rotation ][i].length; j++ )
+            for( var j:uint = 0; j < _figuresArray[ _currentFigureNum ][ rotation ][ i ].length; j++ )
             {
                 if( _figuresArray[ _currentFigureNum ][ rotation ][ i ][ j ] == 1 )
                 {
@@ -401,7 +401,7 @@ public class Game extends Sprite
     private function drawNextFigure():void
     {
         // Убираем предыдущую фигуру
-        if( getChildByName( "next" ) != null )
+        if( getChildByName( "next" )  )
         {
             removeChild( getChildByName( "next" ) );
         }

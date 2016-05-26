@@ -15,7 +15,7 @@ public class GameButton extends Sprite
     public var caption:String;
                                              // name, caption, _activatedEnabled
     private static const INIT_ARRAY:Array = [["bPause","Пауза", true], ["bHelp", "Помощь", true], ["bNew", "Новая игра", false]];
-    private static const TEXT_FORMAT:TextFormat = new TextFormat("Arial", 14, 0x708090, "bold");
+    private static const TEXT_FORMAT:TextFormat = new TextFormat( "Arial", 14, 0x708090, "bold" );
 
     private static var _buttonArray:Vector.<GameButton> = new Vector.<GameButton>(); // Массив кнопок
 
@@ -28,7 +28,7 @@ public class GameButton extends Sprite
         // Регистрируем новую кнопку
         _buttonArray.push( this );
         _loadedGUI = new LoadedGUI( "GameButton.swf", "swf" );
-        addChild(_loadedGUI);
+        addChild( _loadedGUI );
 
     }
 

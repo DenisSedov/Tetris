@@ -16,9 +16,9 @@ import vk.APIConnection;
 
 public class Main extends Sprite
 {
-    public var currentTimer:Timer = new Timer(500); // Таймер для обратного отсчета времени
+    public var currentTimer:Timer = new Timer( 500 ); // Таймер для обратного отсчета времени
 
-    private static const TEXT_FORMAT:TextFormat = new TextFormat("Arial", 12, 0x000000, "bold");
+    private static const TEXT_FORMAT:TextFormat = new TextFormat( "Arial", 12, 0x000000, "bold" );
 
     public static var game:Game; // Обьект игры
     public static var player:Player; // Обьект игрока
@@ -40,7 +40,7 @@ public class Main extends Sprite
 
     private function init(e: Event = null): void
     {
-        if(e)
+        if( e )
         {
             removeEventListener( e.type, init );
         }
@@ -122,19 +122,19 @@ public class Main extends Sprite
     public function reloadData():void
     {
         var tl:TextField = TextField( getChildByName( "textLevel" ) );
-        if( tl != null )
+        if( tl )
         {
             tl.text =  player.levelPlayer.toString();
             tl.x = 250 + ( 100 - tl.width ) * .5;
         }
         var ts:TextField = TextField( getChildByName( "textScore" ) );
-        if( ts != null )
+        if( ts )
         {
             ts.text = player.scorePlayer.toString() + '/' + player.scoreLevelPlayer.toString();
             ts.x = 250 + ( 100 - ts.width ) * .5;
         }
         var tr:TextField = TextField(getChildByName( "textYouRecord" ) );
-        if( tr != null )
+        if( tr )
         {
             tr.text = player.recordScore.toString();
             tr.x = 250 + ( 100 - tr.width) * .5;

@@ -57,35 +57,42 @@ public class Player
             completedLevel();
     }
 
-    public function set scorePlayer(value:uint):void {
+    public function set scorePlayer(value:uint):void
+    {
         _scorePlayer = value;
         validCompleted();
     }
 
-    public function get scorePlayer():uint {
+    public function get scorePlayer():uint
+    {
         return _scorePlayer;
     }
 
-    public function set levelPlayer(value:uint):void {
+    public function set levelPlayer(value:uint):void
+    {
         _levelPlayer = value;
         // Отправляем данные на сервер
         initLevelData();
     }
 
-    public function get levelPlayer():uint {
+    public function get levelPlayer():uint
+    {
         return _levelPlayer;
     }
 
-    public function set currentTimePlayer(value:uint):void {
+    public function set currentTimePlayer(value:uint):void
+    {
         _currentTimePlayer = value;
         validCompleted();
     }
 
-    public function get currentTimePlayer():uint {
+    public function get currentTimePlayer():uint
+    {
         return _currentTimePlayer;
     }
 
-    public function reloadData():void {
+    public function reloadData():void
+    {
         _currentTimePlayer = _timeLevelPlayer;
         _scorePlayer = 0;
     }
@@ -123,7 +130,6 @@ public class Player
         Server.getLevelData( levelDataComplete, levelPlayer )
     }
 
-
     // Загрузка данных игрока
     public function userDataComplete(e:Event):void
     {
@@ -144,8 +150,5 @@ public class Player
         _currentTimePlayer = _timeLevelPlayer;
         _main.reloadData();
     }
-
-
 }
-
 }

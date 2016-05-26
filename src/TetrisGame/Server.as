@@ -30,10 +30,10 @@ public class Server
 
         request.data = variables;
         var loader:URLLoader = new URLLoader();
-        if(func == null)
+        if( func == null )
             func = onComplete;
-        loader.addEventListener(Event.COMPLETE, func);
-        loader.load(request);
+        loader.addEventListener( Event.COMPLETE, func );
+        loader.load( request );
     }
 
     // Запрос данных по пользователю
@@ -63,7 +63,6 @@ public class Server
     public static function onComplete(e:Event):void
     {
         var variables:Object =  com.adobe.serialization.json.JSON.decode( e.target.data );
-        trace (variables);
     }
 }
 }

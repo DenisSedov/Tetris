@@ -21,7 +21,7 @@ public class LoadedGUI extends Sprite
     private static var _dictionaryLoaderRequest:Dictionary = new Dictionary(); // [LoadedGUI] = Loader
     private static var _dictionaryDeferredRequest:Dictionary = new Dictionary(); // [LoaderGUI] = URL
     private static var _countActiveRequest:int = 0;
-    private static var _timerRequest:Timer = new Timer(500);
+    private static var _timerRequest:Timer = new Timer( 500 );
 
     private var _params:LoadedParams = new LoadedParams();
     private var _name:String;
@@ -87,12 +87,12 @@ public class LoadedGUI extends Sprite
     {
         var request:URLRequest = new URLRequest( url );
         var loader:Loader = new Loader();
-        loader.contentLoaderInfo.addEventListener( Event.COMPLETE, onComplete, false, 0, true);
+        loader.contentLoaderInfo.addEventListener( Event.COMPLETE, onComplete, false, 0, true );
         _dictionaryLoaderRequest[ this ] = loader;
         _dictionaryGUI[ url ] = loader;
         _countActiveRequest++;
-        loader.load(request);
-        addChild(loader);
+        loader.load( request );
+        addChild( loader );
         return loader;
     }
 
@@ -158,7 +158,7 @@ public class LoadedGUI extends Sprite
             var url:String;
             var loader;Loader;
             //Берем первый запрос из очереди
-            for( var key:* in _dictionaryDeferredRequest)
+            for( var key:* in _dictionaryDeferredRequest )
             {
                 loadedGUI = key as LoadedGUI;
                 url = _dictionaryDeferredRequest[ key ] as String;
@@ -169,13 +169,13 @@ public class LoadedGUI extends Sprite
             // Регистрируем новый Loader
             for( var key:* in _dictionaryDeferredRequest )
             {
-                if(url != _dictionaryDeferredRequest[key])
+                if( url != _dictionaryDeferredRequest[key] )
                 {
                     continue;
                 }
-                _dictionaryLoaderRequest[key] = loader;
-                _dictionaryGUI[url] = loader;
-                delete _dictionaryDeferredRequest[key];
+                _dictionaryLoaderRequest[ key ] = loader;
+                _dictionaryGUI[ url ] = loader;
+                delete _dictionaryDeferredRequest[ key ];
             }
         }
         if( _countActiveRequest == 0 )
