@@ -1,7 +1,7 @@
 package TetrisGame
 {
 
-import flash.display.DisplayObject;
+import flash.display.Loader;
 import flash.display.Sprite;
 import flash.events.Event;
 import flash.text.TextFieldAutoSize;
@@ -22,6 +22,8 @@ public class Main extends Sprite
 
     public static var game:Game; // Обьект игры
     public static var player:Player; // Обьект игрока
+
+    private static var _assetManager = new AssetManager();
 
     private var _flashVars:Object;
     private var _APIConnectionVK: APIConnection;
@@ -50,9 +52,19 @@ public class Main extends Sprite
         _flashVars[ 'sid' ] = "07b3961a9ba30507d94732542285e0e959fc353874f8b963f381511c7c5251029fd5a1444cbe848a1d0d7";
         _flashVars[ 'secret' ] = "0e8658ca00";
         _APIConnectionVK = new APIConnection( _flashVars );
+        var background:Sprite = new Sprite();
+        background.name = "Background";
+        addChild( background );
 
-        addChild( new LoadedGUI( "background.jpg", "img" ) );
-
+        if ( _assetManager.isLoaded( "img/background.jpg" ) )
+        {
+            background.addChildAt( _assetManager.getAsset( "img/background.jpg" ), 0 );
+        }
+        else
+        {
+            _assetManager.addAsset( "img/background.jpg" );
+            _assetManager.addEventListener( AssetEvent.ASSET_COMPLETE, onCompleteAsset );
+        }
         // Создаем игрока
         player = new Player( this, _flashVars[ 'viewer_id' ] );
         // Расставляем обьекты по сцене
@@ -70,6 +82,28 @@ public class Main extends Sprite
         currentTimer.start();
     }
 
+    private function onCompleteAsset( e:AssetEvent ):void
+    {
+        var loader:Loader = e.data as Loader;
+        switch( loader.contentLoaderInfo.url )
+        {
+            case AssetManager.getURL( "img/background.jpg" ):
+                    var background:Sprite = getChildByName( "Background" ) as Sprite;
+                    if( background )
+                    {
+                        background.addChildAt( loader, 0 );
+                    }
+                    break;
+            case AssetManager.getURL( "swf/TopPanel.swf" ):
+                    var panel:Sprite = getChildByName( "TopPanel" ) as Sprite;
+                    if ( panel )
+                    {
+                        panel.addChildAt( loader, 0 );
+                    }
+        }
+    }
+
+
     // Таймер работает всегда, отсчитывет время игры
     private function onCurrentTime(e:TimerEvent):void
     {
@@ -83,7 +117,7 @@ public class Main extends Sprite
     public function drawTime():void
     {
         var textField:TextField = TextField( getChildByName( "textTime" ) );
-        if ( textField )
+        if ( textField == null )
         {
             return;
         }
@@ -104,9 +138,17 @@ public class Main extends Sprite
     private function drawTop():void
     {
         var TopPanel:Sprite = new Sprite();
-        TopPanel.addChild( new LoadedGUI( "TopPanel.swf", "swf" ) );
         addChild( TopPanel );
         TopPanel.name = "TopPanel";
+        if( _assetManager.getAsset( "swf/TopPanel.swf" ) )
+        {
+            TopPanel.addChildAt( _assetManager.getAsset( "swf/TopPanel.swf" ), 0 );
+        }
+        else
+        {
+            _assetManager.addAsset( "swf/TopPanel.swf" );
+            _assetManager.addEventListener( AssetEvent.ASSET_COMPLETE, onCompleteAsset );
+        }
         GameButton.main = this;
         GameButton.init( TopPanel );
     }

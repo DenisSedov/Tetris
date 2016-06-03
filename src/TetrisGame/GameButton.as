@@ -1,6 +1,8 @@
 package TetrisGame
 {
 
+import flash.display.Loader;
+import flash.display.MovieClip;
 import flash.display.Sprite;
 import flash.events.Event;
 import flash.events.MouseEvent;
@@ -18,8 +20,9 @@ public class GameButton extends Sprite
     private static const TEXT_FORMAT:TextFormat = new TextFormat( "Arial", 14, 0x708090, "bold" );
 
     private static var _buttonArray:Vector.<GameButton> = new Vector.<GameButton>(); // Массив кнопок
+    private static var _assetManager = new AssetManager();
 
-    private var _loadedGUI:LoadedGUI;
+    private var _buttonClip:MovieClip;
     private var _activatedEnabled:Boolean;
     private var _activate:Boolean = false;
 
@@ -27,9 +30,37 @@ public class GameButton extends Sprite
     {
         // Регистрируем новую кнопку
         _buttonArray.push( this );
-        _loadedGUI = new LoadedGUI( "GameButton.swf", "swf" );
-        addChild( _loadedGUI );
+        if( _assetManager.isLoaded( "swf/GameButton.swf" ) )
+        {
+            _buttonClip = getButton( _assetManager.getAsset( "swf/GameButton.swf" ) );
+            drawButtonItems();
+        }
+        else
+        {
+            _assetManager.addAsset( "swf/GameButton.swf" );
+            _assetManager.addEventListener( AssetEvent.ASSET_COMPLETE, onCompleteAsset );
+        }
+    }
 
+    private function getButton(loader:Loader):MovieClip
+    {
+        var MovieClass:Class = loader.contentLoaderInfo.applicationDomain.getDefinition( "GameButton" ) as Class;
+        var newMovie:MovieClip = new MovieClass() as MovieClip;
+        newMovie.gotoAndStop( 1 );
+        return newMovie;
+    }
+
+    private function onCompleteAsset( e:AssetEvent ):void
+    {
+        var loader:Loader = e.data as Loader;
+        switch( loader.contentLoaderInfo.url )
+        {
+            case AssetManager.getURL( "swf/GameButton.swf" ):
+                _buttonClip = getButton( loader );
+                addChildAt( _buttonClip, 0 );
+                drawButtonItems();
+                break;
+        }
     }
 
     public function get activate():Boolean
@@ -96,7 +127,7 @@ public class GameButton extends Sprite
     // Отрисовка кнопок меню
     private function drawButtonItems(mouseMove:Boolean = false):void
     {
-        if( _loadedGUI == null )
+        if ( _buttonClip == null)
         {
             return;
         }
@@ -109,8 +140,7 @@ public class GameButton extends Sprite
         {
             frame = 3;
         }
-        _loadedGUI.Params.currentStopFrame = frame;
-        _loadedGUI.setParams();
+        _buttonClip.gotoAndStop(frame);
     }
 
     // Обработка наведения мыши

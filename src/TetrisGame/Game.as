@@ -2,6 +2,8 @@ package TetrisGame
 {
 
 import flash.display.DisplayObject;
+import flash.display.Loader;
+import flash.display.MovieClip;
 import flash.display.Sprite;
 import flash.utils.Timer;
 import flash.events.TimerEvent;
@@ -27,6 +29,8 @@ public class Game extends Sprite
     private var _currentRotationNum:uint; // Номер поворота активной фигуры
     private var _currentRow:int; // Текущая строка
     private var _currentCol:int; // Текущая колонка
+
+    private static var _assetManager:AssetManager = new AssetManager();
 
     private var _player:Player; // Обьект игрока
     private var _main:Main; // Обьект родителя
@@ -147,7 +151,26 @@ public class Game extends Sprite
                 _cellsArray[ i ][ j ] = 0;
             }
         }
-        addChild( new LoadedGUI( "Map.swf", "swf" ) );
+        if( _assetManager.isLoaded( "swf/Map.swf" ) )
+        {
+            addChildAt( _assetManager.getAsset( "swf/Map.swf" ), 0 );
+        }
+        else
+        {
+            _assetManager.addAsset( "swf/Map.swf" );
+            _assetManager.addEventListener( AssetEvent.ASSET_COMPLETE, onCompleteAsset );
+        }
+    }
+
+    private function onCompleteAsset(e:AssetEvent ):void
+    {
+        var loader:Loader = e.data as Loader;
+        switch( loader.contentLoaderInfo.url )
+        {
+            case AssetManager.getURL( "swf/Map.swf" ):
+                    addChildAt( loader, 0 );
+                    break;
+        }
     }
 
     // Генерация новой фигуры
@@ -183,12 +206,10 @@ public class Game extends Sprite
 
     private function drawCell(cell:Sprite, x:Number, y:Number, color:int):Sprite
     {
-        var params:LoadedParams = new LoadedParams();
-        params.currentStopFrame = color + 1;
-        var squareGUI:LoadedGUI = new LoadedGUI( "Square.swf", "swf", params );
-        cell.addChild( squareGUI );
-        squareGUI.x = x;
-        squareGUI.y = y;
+        var square:Sprite = new Square( color );
+        cell.addChild( square );
+        square.x = x;
+        square.y = y;
         return cell;
     }
 
