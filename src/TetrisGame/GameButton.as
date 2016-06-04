@@ -1,7 +1,6 @@
 package TetrisGame
 {
 
-import flash.display.Loader;
 import flash.display.MovieClip;
 import flash.display.Sprite;
 import flash.events.Event;
@@ -20,7 +19,7 @@ public class GameButton extends Sprite
     private static const TEXT_FORMAT:TextFormat = new TextFormat( "Arial", 14, 0x708090, "bold" );
 
     private static var _buttonArray:Vector.<GameButton> = new Vector.<GameButton>(); // Массив кнопок
-    private static var _assetManager = new AssetManager();
+    private static var _assetManager = AssetManager.instance;
 
     private var _buttonClip:MovieClip;
     private var _activatedEnabled:Boolean;
@@ -30,33 +29,23 @@ public class GameButton extends Sprite
     {
         // Регистрируем новую кнопку
         _buttonArray.push( this );
-        if( _assetManager.isLoaded( "swf/GameButton.swf" ) )
+
+        var assetGameButton:MovieClip = _assetManager.getAsset( "swf/GameButton.swf", onCompleteAsset, "GameButton" ) as MovieClip;
+        if( assetGameButton != null )
         {
-            _buttonClip = getButton( _assetManager.getAsset( "swf/GameButton.swf" ) );
+            _buttonClip = assetGameButton;
             drawButtonItems();
         }
-        else
-        {
-            _assetManager.addAsset( "swf/GameButton.swf" );
-            _assetManager.addEventListener( AssetEvent.ASSET_COMPLETE, onCompleteAsset );
-        }
     }
 
-    private function getButton(loader:Loader):MovieClip
+    // object.fileName
+    // object.target
+    private function onCompleteAsset(object:Object):void
     {
-        var MovieClass:Class = loader.contentLoaderInfo.applicationDomain.getDefinition( "GameButton" ) as Class;
-        var newMovie:MovieClip = new MovieClass() as MovieClip;
-        newMovie.gotoAndStop( 1 );
-        return newMovie;
-    }
-
-    private function onCompleteAsset( e:AssetEvent ):void
-    {
-        var loader:Loader = e.data as Loader;
-        switch( loader.contentLoaderInfo.url )
+        switch( object.fileName )
         {
-            case AssetManager.getURL( "swf/GameButton.swf" ):
-                _buttonClip = getButton( loader );
+            case  "swf/GameButton.swf":
+                _buttonClip = object.target;
                 addChildAt( _buttonClip, 0 );
                 drawButtonItems();
                 break;

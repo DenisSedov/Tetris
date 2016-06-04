@@ -2,7 +2,6 @@ package TetrisGame
 {
 
 import flash.display.DisplayObject;
-import flash.display.Loader;
 import flash.display.MovieClip;
 import flash.display.Sprite;
 import flash.utils.Timer;
@@ -30,7 +29,7 @@ public class Game extends Sprite
     private var _currentRow:int; // Текущая строка
     private var _currentCol:int; // Текущая колонка
 
-    private static var _assetManager:AssetManager = new AssetManager();
+    private static var _assetManager:AssetManager = AssetManager.instance;
 
     private var _player:Player; // Обьект игрока
     private var _main:Main; // Обьект родителя
@@ -151,24 +150,21 @@ public class Game extends Sprite
                 _cellsArray[ i ][ j ] = 0;
             }
         }
-        if( _assetManager.isLoaded( "swf/Map.swf" ) )
+        var assetMap:MovieClip = _assetManager.getAsset( "swf/Map.swf", onCompleteAsset, "Map" ) as MovieClip
+        if( assetMap != null )
         {
-            addChildAt( _assetManager.getAsset( "swf/Map.swf" ), 0 );
-        }
-        else
-        {
-            _assetManager.addAsset( "swf/Map.swf" );
-            _assetManager.addEventListener( AssetEvent.ASSET_COMPLETE, onCompleteAsset );
+            addChildAt( assetMap, 0 );
         }
     }
 
-    private function onCompleteAsset(e:AssetEvent ):void
+    // object.fileName
+    // object.target
+    private function onCompleteAsset(object:Object):void
     {
-        var loader:Loader = e.data as Loader;
-        switch( loader.contentLoaderInfo.url )
+        switch( object.fileName )
         {
-            case AssetManager.getURL( "swf/Map.swf" ):
-                    addChildAt( loader, 0 );
+            case "swf/Map.swf":
+                    addChildAt( object.target, 0 );
                     break;
         }
     }

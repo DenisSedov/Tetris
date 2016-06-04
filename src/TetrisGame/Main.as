@@ -1,7 +1,8 @@
 package TetrisGame
 {
 
-import flash.display.Loader;
+import flash.display.DisplayObject;
+import flash.display.MovieClip;
 import flash.display.Sprite;
 import flash.events.Event;
 import flash.text.TextFieldAutoSize;
@@ -23,8 +24,7 @@ public class Main extends Sprite
     public static var game:Game; // Обьект игры
     public static var player:Player; // Обьект игрока
 
-    private static var _assetManager = new AssetManager();
-
+    private var _assetManager = AssetManager.instance;
     private var _flashVars:Object;
     private var _APIConnectionVK: APIConnection;
 
@@ -56,14 +56,10 @@ public class Main extends Sprite
         background.name = "Background";
         addChild( background );
 
-        if ( _assetManager.isLoaded( "img/background.jpg" ) )
+        var assetBackground:DisplayObject = _assetManager.getAsset( "img/background.jpg", onCompleteAsset )
+        if( assetBackground != null )
         {
-            background.addChildAt( _assetManager.getAsset( "img/background.jpg" ), 0 );
-        }
-        else
-        {
-            _assetManager.addAsset( "img/background.jpg" );
-            _assetManager.addEventListener( AssetEvent.ASSET_COMPLETE, onCompleteAsset );
+            background.addChild( assetBackground );
         }
         // Создаем игрока
         player = new Player( this, _flashVars[ 'viewer_id' ] );
@@ -82,27 +78,27 @@ public class Main extends Sprite
         currentTimer.start();
     }
 
-    private function onCompleteAsset( e:AssetEvent ):void
+    // object.fileName
+    // object.target
+    private function onCompleteAsset(object:Object):void
     {
-        var loader:Loader = e.data as Loader;
-        switch( loader.contentLoaderInfo.url )
+        switch( object.fileName )
         {
-            case AssetManager.getURL( "img/background.jpg" ):
-                    var background:Sprite = getChildByName( "Background" ) as Sprite;
-                    if( background )
-                    {
-                        background.addChildAt( loader, 0 );
-                    }
-                    break;
-            case AssetManager.getURL( "swf/TopPanel.swf" ):
-                    var panel:Sprite = getChildByName( "TopPanel" ) as Sprite;
-                    if ( panel )
-                    {
-                        panel.addChildAt( loader, 0 );
-                    }
+            case "img/background.jpg":
+                var background:Sprite = getChildByName( "Background" ) as Sprite;
+                if( background )
+                {
+                    background.addChildAt( object.target, 0 );
+                }
+                break;
+            case "swf/TopPanel.swf":
+                var panel:Sprite = getChildByName( "TopPanel" ) as Sprite;
+                if ( panel )
+                {
+                    panel.addChildAt( object.target, 0 );
+                }
         }
     }
-
 
     // Таймер работает всегда, отсчитывет время игры
     private function onCurrentTime(e:TimerEvent):void
@@ -137,20 +133,17 @@ public class Main extends Sprite
     // Отрисовка верхней панели игры
     private function drawTop():void
     {
-        var TopPanel:Sprite = new Sprite();
-        addChild( TopPanel );
-        TopPanel.name = "TopPanel";
-        if( _assetManager.getAsset( "swf/TopPanel.swf" ) )
+        var topPanel:Sprite = new Sprite();
+        addChild( topPanel );
+        topPanel.name = "TopPanel";
+
+        var assetTopPanel:MovieClip = _assetManager.getAsset( "swf/TopPanel.swf", onCompleteAsset, "TopPanel" ) as MovieClip;
+        if( assetTopPanel != null )
         {
-            TopPanel.addChildAt( _assetManager.getAsset( "swf/TopPanel.swf" ), 0 );
-        }
-        else
-        {
-            _assetManager.addAsset( "swf/TopPanel.swf" );
-            _assetManager.addEventListener( AssetEvent.ASSET_COMPLETE, onCompleteAsset );
+            topPanel.addChild( assetTopPanel );
         }
         GameButton.main = this;
-        GameButton.init( TopPanel );
+        GameButton.init( topPanel );
     }
 
     // Конец игры

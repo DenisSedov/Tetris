@@ -1,44 +1,36 @@
 package TetrisGame
 {
 
-import flash.display.Loader;
 import flash.display.MovieClip;
 import flash.display.Sprite;
 
 public class Square extends Sprite
 {
     private var _color:int;
-    private static var _assetManager:AssetManager = new AssetManager();
+    private static var _assetManager:AssetManager = AssetManager.instance;
 
     public function Square(color:int)
     {
         _color = color;
-        if( _assetManager.isLoaded( "swf/Square.swf" ) )
+
+        var assetSquare:MovieClip = _assetManager.getAsset( "swf/Square.swf", onCompleteAsset, "Square") as MovieClip;
+        if( assetSquare != null )
         {
-            addChild(getSquare(_assetManager.getAsset( "swf/Square.swf" ) as Loader, color ));
-        }
-        else
-        {
-            _assetManager.addAsset( "swf/Square.swf" );
-            _assetManager.addEventListener( AssetEvent.ASSET_COMPLETE, onCompleteAsset );
+            assetSquare.gotoAndStop( color );
+            addChild( assetSquare );
         }
     }
 
-    private function getSquare(loader:Loader, frame:int = 1):MovieClip
+    // object.fileName
+    // object.target
+    private function onCompleteAsset(object:Object):void
     {
-        var MovieClass:Class = loader.contentLoaderInfo.applicationDomain.getDefinition( "Square" ) as Class;
-        var newMovie:MovieClip = new MovieClass() as MovieClip;
-        newMovie.gotoAndStop( frame );
-        return newMovie;
-    }
-
-    private function onCompleteAsset(e:AssetEvent):void
-    {
-        var loader:Loader = e.data as Loader;
-        switch( loader.contentLoaderInfo.url )
+        switch( object.fileName )
         {
-            case AssetManager.getURL( "swf/Square.swf" ):
-                addChild( getSquare( loader, _color ) );
+            case "swf/Square.swf":
+                var assetSquare:MovieClip = object.target as MovieClip;
+                assetSquare.gotoAndStop( _color );
+                addChild( assetSquare );
                 break;
         }
     }
