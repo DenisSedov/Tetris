@@ -150,11 +150,7 @@ public class Game extends Sprite
                 _cellsArray[ i ][ j ] = 0;
             }
         }
-        var assetMap:MovieClip = _assetManager.getAsset( "swf/Map.swf", onCompleteAsset, "Map" ) as MovieClip
-        if( assetMap != null )
-        {
-            addChildAt( assetMap, 0 );
-        }
+        _assetManager.getAsset( "swf/Map.swf", onCompleteAsset, "Map" );
     }
 
     // object.fileName

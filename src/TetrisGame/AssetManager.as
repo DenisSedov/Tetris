@@ -14,15 +14,23 @@ public class AssetManager
     private const SERVER_URL:String = "https://fathomless-earth-78839.herokuapp.com/";
     private const LIMIT_REQUEST:int = 5;
 
-    private var _dictionaryAssets:Dictionary = new Dictionary(); // URL - Loader Загруженные assets
-    private var _arrayCallBack = new Array(); // object { function callback, URL, className }  Запросы на загрузку
+    // Asset который загрузился, пришел обект SWF или JPG
+    private var _dictionaryAssets:Dictionary = new Dictionary(); // URL - Loader Загруженных assets
+    // Список всех запросов на загрузку, отложенных и выполняемых
+    private var _arrayCallBack = new Array(); // object { function callback, URL, className }
+    // Стек уникальных URL которые запрашивались
     private var _arrayLoaderURL:Vector.<String> = new Vector.<String>(); // Стек запросов URL
-    private var _arrayDeffered:Array = new Array(); // Стек отложенных запросов
+    // Стек отложенных запросов
+    private var _arrayWaiting:Array = new Array(); // object { filename, className }
 
-    private static var _instance:AssetManager = new AssetManager();
+    private static var _instance:AssetManager;
 
     public static function get instance():AssetManager
     {
+        if( !_instance )
+        {
+            new AssetManager();
+        }
         return _instance;
     }
 
@@ -32,6 +40,7 @@ public class AssetManager
         {
             throw Error('AssetManager class is singleton');
         }
+        _instance = this;
     }
 
     // Получение URL объекта
@@ -53,13 +62,15 @@ public class AssetManager
     }
 
     // Получение Asset
-    public function getAsset(fileName:String, calback:*, className:String = ""):DisplayObject
+    public function getAsset(fileName:String, calback:Function, className:String = ""):void
     {
         // Если assets загружен
         if ( isLoaded( fileName ) )
         {
             // Возвращаем копию объекта
-            return  cloneAsset( _dictionaryAssets[ getURL( fileName ) ], className );
+            var displayAsset:DisplayObject = cloneAsset( _dictionaryAssets[ getURL( fileName ) ], className );
+            // Отсылаем объект подписчику
+            calback( { fileName:fileName, target:displayAsset } );
         }
         else
         {
@@ -67,9 +78,8 @@ public class AssetManager
             // Добавляем в стек загрузки
             _arrayCallBack.push( { calBack:calback, URL:url, className:className } );
             // Если не загружался, ставим его в очередь загрузки
-            addAsset( fileName, className );
+            loadAsset( fileName, className );
         }
-        return null;
     }
 
     // Создаем новый asset
@@ -92,22 +102,25 @@ public class AssetManager
         return result;
     }
 
-    // Возвращает число активных запросов
+    // Возвращает число активных запросов, которые в процессе выполнения
     private function getCountActiveRequest():int
     {
         var countAsset:int = 0;
+        // Подсчитываем количество загруженных Asset
         for( var valye:* in _dictionaryAssets )
         {
             countAsset++;
         }
+        // Разница между запросами которые посланы на загрузку и запросами которые загрузились
         return _arrayLoaderURL.length - countAsset;
     }
 
-    private function getIndexOfFileName(value:String):int
+    // Проверяет имеется ли значение в стеке отложенных запросов, и возвращает индекс
+    private function getIndexWaitingFileName(value:String):int
     {
-        for( var i:int = 0; i < _arrayDeffered.length; i++ )
+        for( var i:int = 0; i < _arrayWaiting.length; i++ )
         {
-            var object:Object = _arrayDeffered[ i ];
+            var object:Object = _arrayWaiting[ i ];
             if( object.fileName == value )
             {
                 return i;
@@ -117,26 +130,27 @@ public class AssetManager
     }
 
     // Добавление нового запроса
-    private function addAsset(fileName:String, className:String):void
+    private function loadAsset(fileName:String, className:String):void
     {
         var url:String = getURL( fileName );
         // Проверяем выполнялся ли запрос с таким URL
-        if( _arrayLoaderURL.indexOf( url ) < 0 )
+        if( _arrayLoaderURL.indexOf( url ) >= 0 )
         {
-            // Проверяем очередь загрузки, если превышает лимит, то откладываем
-            if( getIndexOfFileName( fileName ) < 0 && getCountActiveRequest() > LIMIT_REQUEST )
-            {
-                _arrayDeffered.push( { fileName:fileName, className:className } );
-                return;
-            }
-            // Добавляем в стек запросов
-            _arrayLoaderURL.push( url );
-            // Выполняем запрос, если о не выполнялся
-            var request:URLRequest = new URLRequest( url );
-            var loader:Loader = new Loader();
-            loader.contentLoaderInfo.addEventListener( Event.COMPLETE, onComplete );
-            loader.load( request );
+            return;
         }
+        // Проверяем очередь загрузки, если превышает лимит, то откладываем
+        if( getIndexWaitingFileName( fileName ) < 0 && getCountActiveRequest() > LIMIT_REQUEST )
+        {
+            _arrayWaiting.push( { fileName:fileName, className:className } );
+            return;
+        }
+        // Добавляем в стек запросов
+        _arrayLoaderURL.push( url );
+        // Выполняем запрос, если о не выполнялся
+        var request:URLRequest = new URLRequest( url );
+        var loader:Loader = new Loader();
+        loader.contentLoaderInfo.addEventListener( Event.COMPLETE, onComplete );
+        loader.load( request );
     }
 
     // Загрузка данных
@@ -146,33 +160,31 @@ public class AssetManager
         // Добавляем в КЭШ
         _dictionaryAssets[ assetLoader.contentLoaderInfo.url ] = assetLoader;
         // Рассылаем слушателям пришедший обьект
-        var objectCallBack:Object;
-        var displayAsset:DisplayObject;
         //Рассылаем полученные данные по URL
-        for( var i:uint = 0; i < _arrayCallBack.length; i++ )
+        for( var i:int = _arrayCallBack.length - 1; i >= 0; i-- )
         {
-            objectCallBack = _arrayCallBack[ i ];
+            var objectCallBack:Object = _arrayCallBack[ i ];
             // Если URL не совпадают, то пропускаем
             if( objectCallBack.URL != assetLoader.contentLoaderInfo.url )
             {
                 continue;
             }
             // Копируем объект
-            displayAsset = cloneAsset(assetLoader, objectCallBack.className);
+            var displayAsset:DisplayObject = cloneAsset(assetLoader, objectCallBack.className);
             // Отсылаем объект подписчику
             objectCallBack.calBack( { fileName:getFileName( objectCallBack.URL ), target:displayAsset } );
             // Удаляем CallBack из стека
             _arrayCallBack.splice( i, 1 );
-            i--;
+            //i--;
         }
         // Выполняем отложенный запрос
-        if( _arrayDeffered.length != 0 )
+        if( _arrayWaiting.length == 0 )
         {
-            // Удаляет элемент из стека отложенных запросов _arrayDeffered
-            var objectRequest:Object = _arrayDeffered.shift();
-            addAsset( objectRequest.fileName, objectRequest.className );
+            return;
         }
+        // Удаляет элемент из стека отложенных запросов _arrayDeffered
+        var objectRequest:Object = _arrayWaiting.shift();
+        loadAsset( objectRequest.fileName, objectRequest.className );
     }
-
 }
 }

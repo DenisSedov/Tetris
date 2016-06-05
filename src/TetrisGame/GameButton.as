@@ -29,13 +29,7 @@ public class GameButton extends Sprite
     {
         // Регистрируем новую кнопку
         _buttonArray.push( this );
-
-        var assetGameButton:MovieClip = _assetManager.getAsset( "swf/GameButton.swf", onCompleteAsset, "GameButton" ) as MovieClip;
-        if( assetGameButton != null )
-        {
-            _buttonClip = assetGameButton;
-            drawButtonItems();
-        }
+        _assetManager.getAsset( "swf/GameButton.swf", onCompleteAsset, "GameButton" );
     }
 
     // object.fileName

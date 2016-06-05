@@ -16,10 +16,10 @@
     <file path="/GameButton.as" changelist="573b8703-b230-409e-ae56-9cae2ae47861" time="1465032229761" ignored="false" />
     <file path="/Loader.as" changelist="573b8703-b230-409e-ae56-9cae2ae47861" time="1457536226539" ignored="false" />
     <file path="/LoaderTexture.as" changelist="573b8703-b230-409e-ae56-9cae2ae47861" time="1457539509430" ignored="false" />
-    <file path="/AssetManager.as" changelist="573b8703-b230-409e-ae56-9cae2ae47861" time="1465036248701" ignored="false" />
+    <file path="/AssetManager.as" changelist="573b8703-b230-409e-ae56-9cae2ae47861" time="1465119557219" ignored="false" />
     <file path="/AssetEvent.as" changelist="573b8703-b230-409e-ae56-9cae2ae47861" time="1464954458813" ignored="false" />
     <file path="/Square.as" changelist="573b8703-b230-409e-ae56-9cae2ae47861" time="1465031779694" ignored="false" />
-    <file path="/fragment.js" changelist="573b8703-b230-409e-ae56-9cae2ae47861" time="1464965833837" ignored="false" />
+    <file path="/fragment.js" changelist="573b8703-b230-409e-ae56-9cae2ae47861" time="1465119346043" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -82,7 +82,7 @@
       <file leaf-file-name="Game.as" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/TetrisGame/Game.as">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+            <state line="147" column="83" selection-start="5386" selection-end="5386" vertical-scroll-proportion="-48.84">
               <folding>
                 <element signature="e#22#57#0" expanded="true" />
               </folding>
@@ -93,7 +93,7 @@
       <file leaf-file-name="Square.as" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/TetrisGame/Square.as">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="23" column="38" selection-start="579" selection-end="579" vertical-scroll-proportion="0.0">
+            <state line="19" column="47" selection-start="470" selection-end="470" vertical-scroll-proportion="0.0">
               <folding>
                 <element signature="e#22#53#0" expanded="true" />
               </folding>
@@ -104,7 +104,7 @@
       <file leaf-file-name="GameButton.as" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/TetrisGame/GameButton.as">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="2" column="0" selection-start="21" selection-end="21" vertical-scroll-proportion="0.0">
+            <state line="31" column="21" selection-start="1085" selection-end="1098" vertical-scroll-proportion="-7.12">
               <folding>
                 <element signature="e#22#53#0" expanded="true" />
               </folding>
@@ -126,7 +126,7 @@
       <file leaf-file-name="AssetManager.as" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/TetrisGame/AssetManager.as">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="109" column="50" selection-start="3455" selection-end="3455" vertical-scroll-proportion="1.1785095">
+            <state line="101" column="25" selection-start="3363" selection-end="3363" vertical-scroll-proportion="0.19927536">
               <folding>
                 <element signature="e#22#50#0" expanded="true" />
               </folding>
@@ -137,8 +137,10 @@
       <file leaf-file-name="Main.as" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/TetrisGame/Main.as">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="3" column="35" selection-start="57" selection-end="57" vertical-scroll-proportion="0.0">
-              <folding />
+            <state line="196" column="21" selection-start="6107" selection-end="6107" vertical-scroll-proportion="-11.4">
+              <folding>
+                <element signature="e#22#57#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -621,12 +623,12 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="flex">
           <url>file://$PROJECT_DIR$/src/TetrisGame/GameButton.as</url>
-          <line>151</line>
+          <line>145</line>
           <option name="timeStamp" value="56" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="flex">
           <url>file://$PROJECT_DIR$/src/TetrisGame/GameButton.as</url>
-          <line>140</line>
+          <line>134</line>
           <option name="timeStamp" value="57" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="flex">
@@ -634,11 +636,21 @@
           <line>58</line>
           <option name="timeStamp" value="94" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="flex">
+          <url>file://$PROJECT_DIR$/src/TetrisGame/AssetManager.as</url>
+          <line>180</line>
+          <option name="timeStamp" value="172" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="flex">
+          <url>file://$PROJECT_DIR$/src/TetrisGame/AssetManager.as</url>
+          <line>165</line>
+          <option name="timeStamp" value="174" />
+        </line-breakpoint>
       </breakpoints>
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
-      <option name="time" value="170" />
+      <option name="time" value="176" />
     </breakpoint-manager>
   </component>
   <component name="antWorkspaceConfiguration">
@@ -678,31 +690,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/TetrisGame/Game.as">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="e#22#57#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/TetrisGame/GameButton.as">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="2" column="0" selection-start="21" selection-end="21" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="e#22#53#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/TetrisGame/Main.as">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="3" column="35" selection-start="57" selection-end="57" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/TetrisGame/Player.as">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
@@ -719,18 +706,45 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/TetrisGame/Square.as">
+    <entry file="file://$PROJECT_DIR$/src/TetrisGame/GameButton.as">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="23" column="38" selection-start="579" selection-end="579" vertical-scroll-proportion="0.0">
+        <state line="31" column="21" selection-start="1085" selection-end="1098" vertical-scroll-proportion="-7.12">
           <folding>
             <element signature="e#22#53#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/TetrisGame/Square.as">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="19" column="47" selection-start="470" selection-end="470" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="e#22#53#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/TetrisGame/Main.as">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="196" column="21" selection-start="6107" selection-end="6107" vertical-scroll-proportion="-11.4">
+          <folding>
+            <element signature="e#22#57#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/TetrisGame/Game.as">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="147" column="83" selection-start="5386" selection-end="5386" vertical-scroll-proportion="-48.84">
+          <folding>
+            <element signature="e#22#57#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/TetrisGame/AssetManager.as">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="109" column="50" selection-start="3455" selection-end="3455" vertical-scroll-proportion="1.1785095">
+        <state line="101" column="25" selection-start="3363" selection-end="3363" vertical-scroll-proportion="0.19927536">
           <folding>
             <element signature="e#22#50#0" expanded="true" />
           </folding>

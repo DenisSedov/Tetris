@@ -12,13 +12,7 @@ public class Square extends Sprite
     public function Square(color:int)
     {
         _color = color;
-
-        var assetSquare:MovieClip = _assetManager.getAsset( "swf/Square.swf", onCompleteAsset, "Square") as MovieClip;
-        if( assetSquare != null )
-        {
-            assetSquare.gotoAndStop( color );
-            addChild( assetSquare );
-        }
+        _assetManager.getAsset( "swf/Square.swf", onCompleteAsset, "Square" );
     }
 
     // object.fileName

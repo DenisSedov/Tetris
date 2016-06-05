@@ -56,11 +56,7 @@ public class Main extends Sprite
         background.name = "Background";
         addChild( background );
 
-        var assetBackground:DisplayObject = _assetManager.getAsset( "img/background.jpg", onCompleteAsset )
-        if( assetBackground != null )
-        {
-            background.addChild( assetBackground );
-        }
+        _assetManager.getAsset( "img/background.jpg", onCompleteAsset );
         // Создаем игрока
         player = new Player( this, _flashVars[ 'viewer_id' ] );
         // Расставляем обьекты по сцене
@@ -136,12 +132,7 @@ public class Main extends Sprite
         var topPanel:Sprite = new Sprite();
         addChild( topPanel );
         topPanel.name = "TopPanel";
-
-        var assetTopPanel:MovieClip = _assetManager.getAsset( "swf/TopPanel.swf", onCompleteAsset, "TopPanel" ) as MovieClip;
-        if( assetTopPanel != null )
-        {
-            topPanel.addChild( assetTopPanel );
-        }
+        _assetManager.getAsset( "swf/TopPanel.swf", onCompleteAsset, "TopPanel" );
         GameButton.main = this;
         GameButton.init( topPanel );
     }
