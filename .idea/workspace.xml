@@ -16,7 +16,7 @@
     <file path="/GameButton.as" changelist="573b8703-b230-409e-ae56-9cae2ae47861" time="1465032229761" ignored="false" />
     <file path="/Loader.as" changelist="573b8703-b230-409e-ae56-9cae2ae47861" time="1457536226539" ignored="false" />
     <file path="/LoaderTexture.as" changelist="573b8703-b230-409e-ae56-9cae2ae47861" time="1457539509430" ignored="false" />
-    <file path="/AssetManager.as" changelist="573b8703-b230-409e-ae56-9cae2ae47861" time="1465119557219" ignored="false" />
+    <file path="/AssetManager.as" changelist="573b8703-b230-409e-ae56-9cae2ae47861" time="1465193160188" ignored="false" />
     <file path="/AssetEvent.as" changelist="573b8703-b230-409e-ae56-9cae2ae47861" time="1464954458813" ignored="false" />
     <file path="/Square.as" changelist="573b8703-b230-409e-ae56-9cae2ae47861" time="1465031779694" ignored="false" />
     <file path="/fragment.js" changelist="573b8703-b230-409e-ae56-9cae2ae47861" time="1465119346043" ignored="false" />
@@ -126,7 +126,7 @@
       <file leaf-file-name="AssetManager.as" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/TetrisGame/AssetManager.as">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="101" column="25" selection-start="3363" selection-end="3363" vertical-scroll-proportion="0.19927536">
+            <state line="180" column="52" selection-start="6030" selection-end="6030" vertical-scroll-proportion="0.36231884">
               <folding>
                 <element signature="e#22#50#0" expanded="true" />
               </folding>
@@ -638,19 +638,14 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="flex">
           <url>file://$PROJECT_DIR$/src/TetrisGame/AssetManager.as</url>
-          <line>180</line>
-          <option name="timeStamp" value="172" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="flex">
-          <url>file://$PROJECT_DIR$/src/TetrisGame/AssetManager.as</url>
-          <line>165</line>
-          <option name="timeStamp" value="174" />
+          <line>207</line>
+          <option name="timeStamp" value="181" />
         </line-breakpoint>
       </breakpoints>
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
-      <option name="time" value="176" />
+      <option name="time" value="182" />
     </breakpoint-manager>
   </component>
   <component name="antWorkspaceConfiguration">
@@ -744,7 +739,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/TetrisGame/AssetManager.as">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="101" column="25" selection-start="3363" selection-end="3363" vertical-scroll-proportion="0.19927536">
+        <state line="180" column="52" selection-start="6030" selection-end="6030" vertical-scroll-proportion="0.36231884">
           <folding>
             <element signature="e#22#50#0" expanded="true" />
           </folding>
